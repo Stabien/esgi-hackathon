@@ -1,0 +1,105 @@
+import { Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
+import { config } from 'dotenv'
+import crypto from 'crypto'
+import bcrypt from 'bcrypt'
+import { sendEmail } from '../services'
+import { User } from '../models'
+
+config()
+
+const checkIfUserAlreadyExists = async (email: string): Promise<boolean> => {
+  const user = await User.findOne({ where: { email } })
+
+  return user !== null
+}
+
+export const getUserById = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const user = await User.findOne({ where: { uuid: req.params.uuid } })
+    return res.status(200).json({ user })
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
+
+export const authentication = async (req: Request, res: Response): Promise<Response> => {
+  const { email, password } = req.body
+
+  try {
+    const user = await User.findOne({ where: { email } })
+
+    if (user !== null) {
+      if (!bcrypt.compareSync(password, user.password)) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+
+      const { uuid } = user
+      const token = jwt.sign({ uuid }, process.env.JWT_KEY as jwt.Secret)
+
+      return res.status(200).json({
+        user: {
+          uuid,
+          email: user.email,
+          isVerified: user.isVerified,
+          token,
+        },
+      })
+    } else {
+      return res.status(404).json({ error: 'User not found' })
+    }
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
+
+export const registration = async (req: Request, res: Response): Promise<Response> => {
+  const { email, password, confirmPassword } = req.body
+
+  if (password !== confirmPassword) {
+    return res.status(422).json({ error: "Passwords don't match" })
+  }
+
+  try {
+    const uuid = crypto.randomUUID()
+    const hashedPassword = bcrypt.hashSync(password, 10)
+    const doesUserAlreadyExists = await checkIfUserAlreadyExists(email)
+
+    if (doesUserAlreadyExists) {
+      return res.status(422).json({ error: 'User already exists' })
+    }
+
+    const newUser = await User.create({ uuid, email, password: hashedPassword })
+    await newUser.save()
+
+    await sendEmail({
+      from: 'noreply@name-of-your-app.fr',
+      to: email,
+      subject: 'Email verification',
+      text: `http://${process.env.DEV_SERVER_HOST as string}:${
+        process.env.DEV_SERVER_HOST as string
+      }/user/confirmation/${newUser.confirmationCode}`,
+    })
+
+    return res.status(201).json({ message: 'User created' })
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
+
+export const emailConfirmation = async (req: Request, res: Response): Promise<Response> => {
+  const { confirmationCode } = req.params
+
+  try {
+    const user = await User.findOne({ where: { confirmationCode } })
+
+    if (user !== null) {
+      await User.update({ isVerified: true }, { where: { confirmationCode } })
+      return res.status(200).json({ message: 'User verified' })
+    } else {
+      return res.status(404).json({ message: 'User not found' })
+    }
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
