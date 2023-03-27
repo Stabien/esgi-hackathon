@@ -1,9 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -14,23 +13,24 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
+      <main className="">
+        <div className="">
+          <p className="text-red-600">
             Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
+            <code className="">pages/index.tsx</code>
           </p>
+          <h1 className="text-3xl font-bold underline">Hello world!</h1>
           <div>
             <a
               href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By{" "}
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
-                className={styles.vercelLogo}
+                className=""
                 width={100}
                 height={24}
                 priority
@@ -39,16 +39,16 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.center}>
+        <div className="">
           <Image
-            className={styles.logo}
+            className=""
             src="/next.svg"
             alt="Next.js Logo"
             width={180}
             height={37}
             priority
           />
-          <div className={styles.thirteen}>
+          <div className="">
             <Image
               src="/thirteen.svg"
               alt="13"
@@ -59,24 +59,24 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.grid}>
+        <div className="">
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            className=""
             target="_blank"
             rel="noopener noreferrer"
           >
             <h2 className={inter.className}>
               Docs <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>
+            <p className="text-red-700 font-bold ">
               Find in-depth information about Next.js features and&nbsp;API.
             </p>
           </a>
 
           <a
             href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            className=""
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -90,7 +90,7 @@ export default function Home() {
 
           <a
             href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            className=""
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -104,7 +104,7 @@ export default function Home() {
 
           <a
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            className=""
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -119,5 +119,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }
