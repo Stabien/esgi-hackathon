@@ -16,10 +16,20 @@ export default function Home() {
       </Head>
       <main className="">
         <div className="">
-          <p className="text-red-600">
+          <p className="">
             Get started by editing&nbsp;
             <code className="">pages/index.tsx</code>
           </p>
+          <p className="bg-pink-50">Pink 50</p>
+          <p className="bg-pink-100">Pink 100</p>
+          <p className="bg-pale_pink"> Pale pink</p>
+          <p className="bg-blue-50"> Blue 50</p>
+          <p className="bg-blue-100 text-white"> Blue 100</p>
+          <p className="bg-pale_blue"> Pale blue</p>
+          <p className="bg-dark_blue text-white"> Dark blue</p>
+          <p className="bg-pale_yellow"> Pale yellow</p>
+          <p className="bg-grey">Grey</p>
+          <p className="bg-pale_purple">Pale purple</p>
           <h1 className="text-3xl font-bold underline">Hello world!</h1>
           <div>
             <a
