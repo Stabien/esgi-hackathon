@@ -1,3 +1,23 @@
 {
-  "extends": ["next/babel", "next/core-web-vitals"]
+  "parser": "@typescript-eslint/parser",
+
+  "extends": ["next/babel", "next/core-web-vitals"],
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off",
+    "react/jsx-key": "off",
+    "tailwindcss/no-custom-classname": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      0,
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": true,
+        "fixStyle": "inline-type-imports"
+      }
+    ]
+  },
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn"]
+    }
+  }
 }

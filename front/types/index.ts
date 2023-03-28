@@ -16,10 +16,14 @@ export type SportCategory =
   | "Faible activité"
   | "Actif"
   | "Très actif";
+
+export type Role = "Logged" | "Admin" | null;
+
 export type User = {
   email: string;
   age: number;
   profession: ProfessionCategory;
   sport: SportCategory;
   children: number;
+  role: Role;
 };

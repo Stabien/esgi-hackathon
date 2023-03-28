@@ -18,6 +18,7 @@ const Signin = (props: Props) => {
     profession: "Sans emploi",
     children: 0,
     sport: "Inactif",
+    role: null,
   });
   const [password, setPassword] = useState<string>("");
   const handleSubmit = async (e: FormEvent) => {
