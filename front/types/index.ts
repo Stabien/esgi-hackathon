@@ -8,7 +8,8 @@ export type ProfessionCategory =
   | "Médias et communication"
   | "Droit"
   | "Services publics"
-  | "Commerce de détail et de services";
+  | "Commerce de détail et de services"
+  | "Sans emploi";
 
 export type SportCategory =
   | "Inactif"
@@ -20,5 +21,5 @@ export type User = {
   age: number;
   profession: ProfessionCategory;
   sport: SportCategory;
-  enfant: number;
+  children: number;
 };
