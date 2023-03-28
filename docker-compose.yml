@@ -10,14 +10,6 @@ services:
     volumes:
       - ./db:/var/lib/postgresql/data
 
-  front: 
-    image: ./front
-    ports: 
-      - '3000:3000'
-    volumes:
-      - ./front:/home/app
-      - /home/app/node_modules
-
   back:
     build: ./back
     ports:
@@ -27,6 +19,15 @@ services:
       - /home/app/node_modules
     depends_on:
       - database  
+
+  front:
+    build: ./front
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./front:/home/app
+      - /home/app/node_modules
+      - /home/app/.next
 
 volumes:
   database:
