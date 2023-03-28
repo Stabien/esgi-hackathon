@@ -40,7 +40,6 @@ export const authentication = async (req: Request, res: Response): Promise<Respo
         user: {
           uuid,
           email: user.email,
-          isVerified: user.isVerified,
           token,
         },
       })

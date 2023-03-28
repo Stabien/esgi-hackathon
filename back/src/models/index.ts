@@ -1,5 +1,4 @@
 import sequelize from '../config/db'
-import crypto from 'crypto'
 import { DataTypes, Model } from 'sequelize'
 
 /**
@@ -19,8 +18,12 @@ interface UserModel extends Model {
   uuid: string
   email: string
   password: string
-  isVerified: boolean
-  confirmationCode: string
+  firstname: string
+  lastname: string
+  role: string
+  profession: string
+  children: number
+  sport: string
 }
 
 /**
@@ -46,28 +49,33 @@ export const User = sequelize.define<UserModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    isVerified: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    },
-    confirmationCode: {
+    firstname: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: crypto.randomBytes(128).toString('hex'),
     },
+    lastname: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    profession: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    children: {
+      type: DataTypes.NUMBER,
+      allowNull: false,
+    },
+    sport: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   },
   {
     timestamps: false,
     underscored: true,
   },
 )
-
-/**
- * Entity models
- */
-export interface UserEntity {
-  uuid: string
-  email: string
-  password: string
-}
