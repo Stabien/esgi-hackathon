@@ -10,14 +10,14 @@ const Select = ({ options, placeholder, onChange, name, className }: Props) => {
   return (
     <select
       name={name}
-      value={""}
-      required
+      value={"Sans emploi"}
       placeholder={placeholder}
-      onChange={(event) => onChange(event.target.value)}
+      onChange={(event) => {
+        console.log("changed");
+
+        onChange(event.target.value);
+      }}
     >
-      <option disabled={true} value="">
-        {placeholder}
-      </option>
       {options.map((option) => (
         <option key={option.label} value={option.value}>
           {option.label}

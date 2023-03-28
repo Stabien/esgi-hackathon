@@ -1,4 +1,5 @@
 import { ProfessionCategory, SportCategory } from "@/types";
+import { Toast } from "react-hot-toast";
 
 export const SportList: SportCategory[] = [
   "Inactif",
@@ -19,3 +20,20 @@ export const ProfessionList: ProfessionCategory[] = [
   "Commerce de détail et de services",
   "Sans emploi",
 ];
+
+export const toastOptions: Partial<
+  Pick<
+    Toast,
+    | "style"
+    | "className"
+    | "id"
+    | "icon"
+    | "duration"
+    | "ariaProps"
+    | "position"
+    | "iconTheme"
+  >
+> = {
+  duration: 4000,
+  position: "bottom-right",
+};
