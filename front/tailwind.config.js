@@ -10,6 +10,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        menu: "auto 1fr",
+      },
+      gridTemplateRows: {
+        menu: "auto 1fr",
+      },
       colors: {
         neutral: {
           50: "#F5F6F7",
@@ -20,6 +26,7 @@ module.exports = {
           300: "#5D738D",
           350: "#355070",
           400: "#1F2F42",
+          500: "#00224B",
         },
         blue: {
           50: "#ECF2F9",
