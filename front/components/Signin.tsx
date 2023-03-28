@@ -36,7 +36,7 @@ const Signin = (props: Props) => {
     }
   };
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={(e) => handleSubmit(e)} className="font-source">
       <input
         required
         type="email"
