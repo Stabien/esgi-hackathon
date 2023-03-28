@@ -4,14 +4,9 @@ import { config } from 'dotenv'
 config()
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.DEV_EMAIL_ADDRESS,
-    pass: process.env.DEV_EMAIL_PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
+  service: 'maildev',
+  port: 1025,
+  ignoreTLS: true
 })
 
 export default transporter

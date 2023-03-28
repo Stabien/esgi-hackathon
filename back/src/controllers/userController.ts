@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 import { config } from 'dotenv'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-import { sendEmail } from '../services'
 import { User } from '../models'
 
 config()
@@ -72,14 +71,14 @@ export const registration = async (req: Request, res: Response): Promise<Respons
     const newUser = await User.create({ uuid, email, password: hashedPassword })
     await newUser.save()
 
-    await sendEmail({
-      from: 'noreply@name-of-your-app.fr',
-      to: email,
-      subject: 'Email verification',
-      text: `http://${process.env.DEV_SERVER_HOST as string}:${
-        process.env.DEV_SERVER_HOST as string
-      }/user/confirmation/${newUser.confirmationCode}`,
-    })
+    // await sendEmail({
+    //   from: 'noreply@name-of-your-app.fr',
+    //   to: email,
+    //   subject: 'Email verification',
+    //   text: `http://${process.env.DEV_SERVER_HOST as string}:${
+    //     process.env.DEV_SERVER_HOST as string
+    //   }/user/confirmation/${newUser.confirmationCode}`,
+    // })
 
     return res.status(201).json({ message: 'User created' })
   } catch (e) {
