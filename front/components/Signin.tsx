@@ -1,5 +1,6 @@
 import Select from "@/components/Select";
 import { ProfessionList, SportList } from "@/constants";
+import { selectUser } from "@/redux/user/user.selectors";
 import { ProfessionCategory, User } from "@/types";
 import { arrayToSelect } from "@/utils/display";
 import React, {
@@ -8,23 +9,34 @@ import React, {
   FormEvent,
   useState,
 } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 const Signin = (props: Props) => {
+  const user = useSelector(selectUser);
+
   const [userForm, setUserForm] = useState<User>({
     email: "",
     age: 0,
     profession: "Sans emploi",
     children: 0,
     sport: "Inactif",
+    role: null,
   });
   const [password, setPassword] = useState<string>("");
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      console.log(userForm);
+      throw new Error("Test");
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={(e) => handleSubmit(e)} className="font-source">
       <input
         required
         type="email"
