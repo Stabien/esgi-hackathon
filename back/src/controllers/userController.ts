@@ -52,7 +52,8 @@ export const authentication = async (req: Request, res: Response): Promise<Respo
 }
 
 export const registration = async (req: Request, res: Response): Promise<Response> => {
-  const { email, password, firstname, lastname, confirmPassword } = req.body
+  const { email, password, firstname, lastname, confirmPassword, profession, children, sport } =
+    req.body
 
   if (password !== confirmPassword) {
     return res.status(422).json({ error: "Passwords don't match" })
@@ -73,6 +74,10 @@ export const registration = async (req: Request, res: Response): Promise<Respons
       password: hashedPassword,
       firstname,
       lastname,
+      role: 'user',
+      profession,
+      children,
+      sport,
     })
     await newUser.save()
 
