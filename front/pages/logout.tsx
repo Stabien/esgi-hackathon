@@ -8,7 +8,6 @@ const LogoutPage = (props: Props) => {
   const router = useRouter();
   const logout = async () => {
     await LogoutFirebase();
-
     router.push("/");
   };
   useEffect(() => {

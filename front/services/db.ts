@@ -4,6 +4,7 @@ import { User } from "@/types";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -37,19 +38,13 @@ export const JoinFirebase = async (body: RegistrationType): Promise<void> => {
 
 export const LogoutFirebase = async () => {
   signOut(auth);
-  // signOut(auth).then(() => router.push("/"))
 };
-// export const LoginFirebase = async (
-//   { email, password }: JoinState,
-//   onError: (error: ErrorUser) => void,
-//   onSucces: (undefined: undefined) => void
-// ): Promise<void> => {
-//   try {
-//     await signInWithEmailAndPassword(auth, email, password);
-//     onSucces(undefined);
-//   } catch (error) {
-//     console.log(error);
-
-//     onError(error as ErrorUser);
-//   }
-// };
+export const LoginFirebase = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<void> => {
+  await signInWithEmailAndPassword(auth, email, password);
+};

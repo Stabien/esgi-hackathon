@@ -28,11 +28,13 @@ function SiteMenu({}: Props) {
           <Link href="/new-content">new content</Link>
         </div>
 
-        {user.role === null && (
+        {user.role === null ? (
           <>
             <Link href="/login">Login</Link>
             <Link href="/signin">Signin</Link>
           </>
+        ) : (
+          <Link href="/logout">Logout</Link>
         )}
         {user.role === "Admin" && (
           <>

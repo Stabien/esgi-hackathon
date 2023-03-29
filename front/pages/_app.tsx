@@ -36,7 +36,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         const reduxUser = doc.data();
         dispatch(updateUser(reduxUser as User));
       });
-      toast(`Vous etes connecté avec ${user.email}`);
+      // toast(`Vous etes connecté avec ${user.email}`);
     });
 
     return () => {
