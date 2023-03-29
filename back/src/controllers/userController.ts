@@ -52,7 +52,7 @@ export const authentication = async (req: Request, res: Response): Promise<Respo
 }
 
 export const registration = async (req: Request, res: Response): Promise<Response> => {
-  const { email, password, confirmPassword } = req.body
+  const { email, password, firstname, lastname, confirmPassword } = req.body
 
   if (password !== confirmPassword) {
     return res.status(422).json({ error: "Passwords don't match" })
@@ -67,7 +67,13 @@ export const registration = async (req: Request, res: Response): Promise<Respons
       return res.status(422).json({ error: 'User already exists' })
     }
 
-    const newUser = await User.create({ uuid, email, password: hashedPassword })
+    const newUser = await User.create({
+      uuid,
+      email,
+      password: hashedPassword,
+      firstname,
+      lastname,
+    })
     await newUser.save()
 
     // await sendEmail({
