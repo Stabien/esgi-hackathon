@@ -52,7 +52,7 @@ export const authentication = async (req: Request, res: Response): Promise<Respo
 }
 
 export const registration = async (req: Request, res: Response): Promise<Response> => {
-  const { email, password, firstname, lastname, confirmPassword, profession, children, sport } =
+  const { email, password, confirmPassword, firstname, lastname, dateOfBirth, profession, children, sport } =
     req.body
 
   if (password !== confirmPassword) {
@@ -75,6 +75,7 @@ export const registration = async (req: Request, res: Response): Promise<Respons
       firstname,
       lastname,
       role: 'user',
+      dateOfBirth,
       profession,
       children,
       sport,
