@@ -1,5 +1,5 @@
 import { contentTypes } from "./../../back/src/models/index";
-import { ProfessionCategory, SportCategory } from "@/types";
+import { ProfessionCategory, SportCategory, User } from "@/types";
 
 export type RegistrationType = {
   email: string;
@@ -13,15 +13,21 @@ export type RegistrationType = {
   sport: SportCategory;
 };
 
-export const registerUser = async (body: RegistrationType) => {
-  console.log(body);
-
-  const result = await fetch(`http://localhost:4000/api/user/registration`, {
-    headers: { contentType: "application/json" },
-    method: "POST",
-    body: body as any,
-  });
-  console.log(result);
+export const registerUser = async (body: RegistrationType): Promise<Response | Error> => {
+  try {
+    const result = await fetch('http://localhost:4000/api/user/registration', {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(body)
+    })
+    return result
+  } catch (e) {
+    return e as Error
+  }
 };
 
 export const loginUser = async (body: { email: string; password: string }) => {
