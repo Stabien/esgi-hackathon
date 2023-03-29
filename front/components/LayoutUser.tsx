@@ -27,13 +27,14 @@ const LayoutUser = ({ children }: LayoutProps) => {
           src="/jaji.svg"
           alt=""
           style={{ gridArea: "logo" }}
-          className="bg-red-500"
+          className=""
         />
-        <div className="bg-blue-500">sdfksdj</div>
+        <div className=""></div>
       </div>
       {isMenuOpened && (
-        <div className="absolute mt-10 py-8 z-10 w-screen top-0 left-0 bg-gray-200">
-          <Link href="/login">Login</Link>
+        <div className="absolute mt-10 py-8 z-10 w-screen top-0 left-0 bg-white flex flex-col gap-2 text-blue-350 rounded-lg shadow-md">
+          <Link className="w-fit m-auto hover:text-blue-300" href="/">Content</Link>
+          <Link className="w-fit m-auto hover:text-blue-300" href="/">Log Out</Link>
         </div>
       )}
       <main className="">{children}</main>
