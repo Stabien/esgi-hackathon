@@ -91,6 +91,10 @@ export const User = sequelize.define<UserModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    dateOfBirth: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     role: {
       type: DataTypes.STRING,
       allowNull: false,

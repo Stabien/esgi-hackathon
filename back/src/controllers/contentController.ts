@@ -9,7 +9,10 @@ const checkIfContentAlreadyExists = async (title: string): Promise<boolean> => {
   return content !== null
 }
 export const contentPost = async (req: Request, res: Response): Promise<Response> => {
-  const { title, tags, text, url } = req.body
+  const { title, type, tags, thumbnail } = req.body
+
+  const url = req.body.hasOwnProperty('url') ? req.body.url : null
+  const text = req.body.hasOwnProperty('text') ? req.body.text : null
 
   try {
     const uuid = crypto.randomUUID()
@@ -19,7 +22,7 @@ export const contentPost = async (req: Request, res: Response): Promise<Response
       return res.status(422).json({ error: 'Content already created' })
     }
 
-    const newContent = await Content.create({ title, tags, text, url })
+    const newContent = await Content.create({ uuid, title, tags, type, text, thumbnail })
     await newContent.save()
 
     return res.status(201).json({ message: 'Content created' })

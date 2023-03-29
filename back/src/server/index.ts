@@ -1,9 +1,13 @@
 import bodyParser from 'body-parser'
 import express, { NextFunction, Request, Response } from 'express'
 import routes from '../routes'
+import cors from 'cors'
 
 const createServer = () => {
   const app = express()
+
+  // Set up CORS
+  app.use(cors())
 
   // Set up bodyParser
   app.use(bodyParser.urlencoded({ extended: true }))
