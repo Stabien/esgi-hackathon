@@ -30,6 +30,7 @@ export const professionCategories = [
 ]
 
 export const sportCategories = ['Inactif', 'Faible activité', 'Actif', 'Très actif']
+export const contentTypes = ['article', 'video', 'podcast']
 
 interface UserModel extends Model {
   uuid: string
@@ -122,7 +123,7 @@ export const Content = sequelize.define<ContentModel>(
       defaultValue: DataTypes.UUIDV4,
     },
     type: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(...contentTypes),
       allowNull: false,
     },
     title: {
