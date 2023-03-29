@@ -39,8 +39,10 @@ const Signin = (props: Props) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      if (password !== confirmPassword) {
+        throw new Error("Vos mots de passes ne correspondent oas  ");
+      }
       console.log(userForm);
-      throw new Error("Test");
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -296,6 +298,7 @@ const Signin = (props: Props) => {
               type="date"
               name=""
               id=""
+              required
               className="border border-neutral-150 px-4 py-2 rounded"
               onChange={(e) => {
                 const newDate = new Date(e.target.value).getTime() / 1000;
