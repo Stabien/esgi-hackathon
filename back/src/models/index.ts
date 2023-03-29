@@ -1,5 +1,6 @@
 import sequelize from '../config/db'
 import { DataTypes, Model } from 'sequelize'
+import { ContentType, ProfessionCategory, SportCategory } from '../types'
 
 /**
  * Entity rules
@@ -14,6 +15,22 @@ export const userRules = {
   password: regexPassword,
 }
 
+export const professionCategories = [
+  'Médical et paramédical',
+  'Services financiers',
+  'Éducation',
+  'Ingénierie',
+  "Technologie de l'information",
+  'Marketing et publicité',
+  'Médias et communication',
+  'Droit',
+  'Services publics',
+  'Commerce de détail et de services',
+  'Sans emploi',
+]
+
+export const sportCategories = ['Inactif', 'Faible activité', 'Actif', 'Très actif']
+
 interface UserModel extends Model {
   uuid: string
   email: string
@@ -21,9 +38,25 @@ interface UserModel extends Model {
   firstname: string
   lastname: string
   role: string
-  profession: string
+  profession: ProfessionCategory
   children: number
-  sport: string
+  sport: SportCategory
+}
+
+interface ContentModel extends Model {
+  uuid?: string
+  type: ContentType
+  title: string
+  tags: string[]
+  thumbnail: string
+  creationDate: number //timestamp
+  text?: string
+  url?: string
+}
+
+interface ImpressionModel extends Model {
+  contentUuid?: string
+  date: number //timestamp
 }
 
 /**
@@ -55,24 +88,78 @@ export const User = sequelize.define<UserModel>(
     },
     lastname: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     profession: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(...professionCategories),
       allowNull: false,
     },
     children: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     sport: {
+      type: DataTypes.ENUM(...sportCategories),
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: false,
+    underscored: true,
+  },
+)
+
+export const Content = sequelize.define<ContentModel>(
+  'Content',
+  {
+    uuid: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+    type: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    thumbnail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    text: DataTypes.STRING,
+    url: DataTypes.STRING,
+  },
+  {
+    underscored: true,
+  },
+)
+
+export const Impression = sequelize.define<ImpressionModel>(
+  'Impression',
+  {
+    contentUuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      references: {
+        model: Content, // Can be both a string representing the table name or a Sequelize model
+        key: 'uuid',
+      },
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

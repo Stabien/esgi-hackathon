@@ -20,3 +20,20 @@ export interface DbConfig {
   user: string
   password: string
 }
+
+export type ContentType = 'article' | 'video' | 'podcast'
+
+export type ProfessionCategory =
+  | 'Médical et paramédical'
+  | 'Services financiers'
+  | 'Éducation'
+  | 'Ingénierie'
+  | "Technologie de l'information"
+  | 'Marketing et publicité'
+  | 'Médias et communication'
+  | 'Droit'
+  | 'Services publics'
+  | 'Commerce de détail et de services'
+  | 'Sans emploi'
+
+export type SportCategory = 'Inactif' | 'Faible activité' | 'Actif' | 'Très actif'
