@@ -2,6 +2,9 @@ import { selectUser } from "@/redux/user/user.selectors";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
+import HomeIcon from "./Icons/HomeIcon";
+import PlusIcon from "./Icons/PlusIcon";
+import StatIcon from "./Icons/StatIcon";
 
 type Props = {};
 
@@ -16,7 +19,13 @@ function SiteMenu({}: Props) {
         <img src="/jaji.svg" alt="" />
       </Link>
       <div className=" mt-10 flex flex-col gap-4">
-        <Link href="/">Home</Link>
+        <div className="flex gap-2">
+          <HomeIcon />
+          <PlusIcon />
+          <StatIcon />
+          <Link href="/">Home</Link>
+        </div>
+        
         {user.role === null && (
           <>
             <Link href="/login">Login</Link>
@@ -25,7 +34,32 @@ function SiteMenu({}: Props) {
         )}
         {user.role === "Admin" && (
           <>
-            <Link href="/new-content">Nouvel article</Link>
+          <div>
+            Contenu
+          <select className="truncate w-fit h-0 hover:h-fit">
+            <option className="flex gap-2">
+              <PlusIcon />
+              <Link href="/new-content">Nouvel article</Link>
+            </option>
+            <option className="flex gap-2">
+              <Link href="/">Tous les contenus</Link>
+            </option>
+          </select>
+          </div>
+     
+          <div>
+            Statistique
+            <select>
+            <option className="flex gap-2">
+              <Icon />
+              <Link href="/new-content">Cient</Link>
+            </option>
+            <option className="flex gap-2">
+              <Link href="/">Campagne</Link>
+            </option>
+          </select>
+          </div>
+          
           </>
         )}
       </div>

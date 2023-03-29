@@ -10,8 +10,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        "mobile-topbar": "0px 0px 2px rgba(23, 43, 77, 4)",
+      },
       gridTemplateColumns: {
         menu: "auto 1fr",
+        "menu-mobile": "1fr auto 1fr",
       },
       gridTemplateRows: {
         menu: "auto 1fr",
