@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "postgres",
-    "password": "example",
+    "password": "postgres",
     "database": "esgi_hackathon",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "example",
+    "password": "postgres",
     "database": "esgi_hackathon",
     "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": "example",
+    "password": "postgres",
     "database": "esgi_hackathon",
     "host": "localhost",
     "dialect": "postgres"

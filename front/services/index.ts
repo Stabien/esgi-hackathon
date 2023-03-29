@@ -1,5 +1,5 @@
 import { contentTypes } from "./../../back/src/models/index";
-import { ProfessionCategory, SportCategory } from "@/types";
+import { ProfessionCategory, Role, SportCategory } from "@/types";
 
 export type RegistrationType = {
   email: string;
@@ -11,15 +11,16 @@ export type RegistrationType = {
   profession: ProfessionCategory;
   children: number;
   sport: SportCategory;
+  role: Role;
 };
 
 export const registerUser = async (body: RegistrationType) => {
   console.log(body);
 
   const result = await fetch(`http://localhost:4000/api/user/registration`, {
-    headers: { contentType: "application/json" },
+    // headers: { contentType: "application/json" },
     method: "POST",
-    body: body as any,
+    body: JSON.stringify(body as any),
   });
   console.log(result);
 };
