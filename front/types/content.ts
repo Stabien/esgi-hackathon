@@ -9,11 +9,11 @@ export type BaseContent = {
   creationDate: number; //timestamp
 };
 
-export type ArticleContent = {
+export type ArticleContent = BaseContent & {
   type: Extract<ContentType, "article">;
   text: string;
 };
-export type VideoContent = {
+export type VideoContent = BaseContent & {
   type: Extract<ContentType, "video" | "podcast">;
   url: string;
 };

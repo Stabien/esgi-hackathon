@@ -5,7 +5,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-export function Layout({ children }: LayoutProps) {
+export function LayoutAdmin({ children }: LayoutProps) {
   return (
     <div
       style={{

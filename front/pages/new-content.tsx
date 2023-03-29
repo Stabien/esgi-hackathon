@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import { LayoutAdmin } from "@/components/LayoutAdmin";
 import NewContent from "@/components/NewContent";
 import React from "react";
 
@@ -6,9 +6,9 @@ type Props = {};
 
 const NewContentPage = (props: Props) => {
   return (
-    <Layout>
+    <LayoutAdmin>
       <NewContent />
-    </Layout>
+    </LayoutAdmin>
   );
 };
 

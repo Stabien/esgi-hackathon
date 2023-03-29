@@ -1,10 +1,10 @@
-import { Layout } from "@/components/Layout";
+import { LayoutAdmin } from "@/components/LayoutAdmin";
 import React from "react";
 
 type Props = {};
 
 const ContentPage = (props: Props) => {
-  return <Layout>dfd</Layout>;
+  return <LayoutAdmin>dfd</LayoutAdmin>;
 };
 
 export default ContentPage;

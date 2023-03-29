@@ -1,4 +1,5 @@
-import { Layout } from "@/components/Layout";
+import { LayoutAdmin } from "@/components/LayoutAdmin";
+import LayoutUser from "@/components/LayoutUser";
 import Login from "@/components/Login";
 import Signin from "@/components/Signin";
 import React from "react";
@@ -7,9 +8,9 @@ type Props = {};
 
 const SigninPage = (props: Props) => {
   return (
-    <Layout>
+    <LayoutUser>
       <Signin />
-    </Layout>
+    </LayoutUser>
   );
 };
 
