@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 type Props = {};
 
-function SiteHeader({}: Props) {
+function SiteMenu({}: Props) {
   const user = useSelector(selectUser);
   return (
     <article
@@ -33,4 +33,4 @@ function SiteHeader({}: Props) {
   );
 }
 
-export default SiteHeader;
+export default SiteMenu;
