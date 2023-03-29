@@ -82,14 +82,21 @@ export const registration = async (req: Request, res: Response): Promise<Respons
     })
     await newUser.save()
 
-    // await sendEmail({
-    //   from: 'noreply@name-of-your-app.fr',
-    //   to: email,
-    //   subject: 'Email verification',
-    //   text: `http://${process.env.DEV_SERVER_HOST as string}:${
-    //     process.env.DEV_SERVER_HOST as string
-    //   }/user/confirmation/${newUser.confirmationCode}`,
-    // })
+    return res.status(201).json({ message: 'User created' })
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
+
+export const updateUser = async (req: Request, res: Response): Promise<Response> => {
+  const { uuid } = req.params
+
+  try {
+    const user = await User.create({ uuid: req.params.uuid })
+    
+    user.update({
+      ...req.body
+    })
 
     return res.status(201).json({ message: 'User created' })
   } catch (e) {
@@ -97,19 +104,21 @@ export const registration = async (req: Request, res: Response): Promise<Respons
   }
 }
 
-export const emailConfirmation = async (req: Request, res: Response): Promise<Response> => {
-  const { confirmationCode } = req.params
+// export const emailConfirmation = async (req: Request, res: Response): Promise<Response> => {
+//   const { confirmationCode } = req.params
 
-  try {
-    const user = await User.findOne({ where: { confirmationCode } })
+//   try {
+//     const user = await User.findOne({ where: { confirmationCode } })
 
-    if (user !== null) {
-      await User.update({ isVerified: true }, { where: { confirmationCode } })
-      return res.status(200).json({ message: 'User verified' })
-    } else {
-      return res.status(404).json({ message: 'User not found' })
-    }
-  } catch (e) {
-    return res.status(500).json({ error: e })
-  }
-}
+//     if (user !== null) {
+//       await User.update({ isVerified: true }, { where: { confirmationCode } })
+//       return res.status(200).json({ message: 'User verified' })
+//     } else {
+//       return res.status(404).json({ message: 'User not found' })
+//     }
+//   } catch (e) {
+//     return res.status(500).json({ error: e })
+//   }
+// }
+
+
