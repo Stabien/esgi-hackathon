@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { Layout } from "@/components/Layout";
-import HomeIcon from "@/components/Icons/Home";
+import HomeIcon from "@/components/Icons/HomeIcon";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +16,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="">
-        <div className="text-red-600">
-          <p className="text-blue-500">
-            <HomeIcon />
+        <div className="">
+          <p className="">
             Get started by editing&nbsp;
             <code className="">pages/index.tsx</code>
           </p>
