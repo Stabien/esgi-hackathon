@@ -2,6 +2,7 @@ import ArrowIcon from "@/components/Icons/ArrowIcon";
 import Select from "@/components/Select";
 import { ProfessionList, SportList } from "@/constants";
 import { selectUser } from "@/redux/user/user.selectors";
+import { registerUser, RegistrationType } from "@/services";
 import { ProfessionCategory, User } from "@/types";
 import { arrayToSelect } from "@/utils/display";
 import React, {
@@ -28,7 +29,7 @@ const Signin = (props: Props) => {
     firstname: "",
     lastname: "",
     email: "",
-    age: 0,
+    dateOfBirth: 0,
     profession: "Sans emploi",
     children: 0,
     sport: "Inactif",
@@ -42,16 +43,22 @@ const Signin = (props: Props) => {
       if (password !== confirmPassword) {
         throw new Error("Vos mots de passes ne correspondent oas  ");
       }
-      console.log(userForm);
+      const bodyRegister: RegistrationType = {
+        email: userForm.email,
+        password: password,
+        confirmPassword: confirmPassword,
+        firstname: userForm.firstname,
+        dateOfBirth: userForm.dateOfBirth,
+        lastname: userForm.lastname,
+        profession: userForm.profession,
+        children: userForm.children,
+        sport: userForm.sport,
+      };
+      registerUser(bodyRegister);
     } catch (error: any) {
       toast.error(error.message);
     }
   };
-
-  useEffect(() => {
-    console.log(userForm);
-    console.log(password);
-  }, [userForm, password]);
 
   return (
     <form
@@ -304,7 +311,7 @@ const Signin = (props: Props) => {
                 const newDate = new Date(e.target.value).getTime() / 1000;
                 setUserForm((prevState) => ({
                   ...prevState,
-                  age: newDate,
+                  dateOfBirth: newDate,
                 }));
               }}
             />

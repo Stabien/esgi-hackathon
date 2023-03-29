@@ -23,7 +23,7 @@ export type User = {
   email: string;
   firstname: string;
   lastname: string;
-  age: number;
+  dateOfBirth: number;
   profession: ProfessionCategory;
   sport: SportCategory;
   children: number;
