@@ -1,4 +1,4 @@
-import SiteHeader from "@/components/SiteHeader";
+import SiteMenu from "@/components/SiteMenu";
 import TopBar from "@/components/TopBar";
 
 interface LayoutProps {
@@ -15,7 +15,7 @@ export function Layout({ children }: LayoutProps) {
       className="grid grid-cols-menu grid-rows-menu"
     >
       <TopBar />
-      <SiteHeader />
+      <SiteMenu />
       <main
         style={{ gridArea: "content" }}
         className="bg-blue-50 p-8 rounded-tl-3xl"

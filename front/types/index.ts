@@ -29,10 +29,3 @@ export type User = {
   children: number;
   role: Role;
 };
-
-export type Content = {
-  type: "text" | "video" | "image";
-  url?: string;
-  text?: string;
-  tags?: string[];
-};
