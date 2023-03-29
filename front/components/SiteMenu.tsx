@@ -51,7 +51,7 @@ function SiteMenu({}: Props) {
             Statistique
             <select>
             <option className="flex gap-2">
-              <Icon />
+              <StatIcon />
               <Link href="/new-content">Cient</Link>
             </option>
             <option className="flex gap-2">
