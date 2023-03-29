@@ -1,11 +1,14 @@
 export type ContentType = "article" | "video" | "podcast";
 
+export type TagsType = string;
+
 export type BaseContent = {
-  id?: string;
+  uid: string;
   type: ContentType;
   title: string;
-  tags: string[];
   thumbnail: string;
+  banner: string;
+  tags: TagsType[];
   creationDate: number; //timestamp
 };
 
@@ -16,7 +19,10 @@ export type ArticleContent = BaseContent & {
 export type VideoContent = BaseContent & {
   type: Extract<ContentType, "video" | "podcast">;
   url: string;
+  description: string;
 };
+
+export type Content = ArticleContent | VideoContent;
 
 export type Impression = {
   idContent: string;

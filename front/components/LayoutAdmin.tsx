@@ -1,11 +1,14 @@
 import SiteMenu from "@/components/SiteMenu";
 import TopBar from "@/components/TopBar";
+import { selectUser } from "@/redux/user/user.selectors";
+import { useSelector } from "react-redux";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export function LayoutAdmin({ children }: LayoutProps) {
+  const user = useSelector(selectUser);
   return (
     <div
       style={{
@@ -20,7 +23,7 @@ export function LayoutAdmin({ children }: LayoutProps) {
         style={{ gridArea: "content" }}
         className="bg-blue-50 p-8 rounded-tl-3xl"
       >
-        {children}
+        {user.role === "Admin" ? children : "No admin"}
       </main>
     </div>
   );

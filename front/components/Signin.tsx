@@ -1,8 +1,11 @@
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import Select from "@/components/Select";
 import { ProfessionList, SportList } from "@/constants";
+import { auth } from "@/constants/db";
+import { updateUser } from "@/redux/user/user.actions";
 import { selectUser } from "@/redux/user/user.selectors";
 import { registerUser, RegistrationType } from "@/services";
+import { JoinFirebase } from "@/services/db";
 import { ProfessionCategory, User } from "@/types";
 import { arrayToSelect } from "@/utils/display";
 import React, {
@@ -13,12 +16,14 @@ import React, {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 type Props = {};
 
 const Signin = (props: Props) => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
   const childrenList = [1, 2, 3, 4, 5];
   const [isDisplaySelectJob, setIsDisplaySelectJob] = useState<boolean>(false);
   const [isDisplayChildren, setIsDisplayChildren] = useState<boolean>(false);
@@ -26,6 +31,7 @@ const Signin = (props: Props) => {
   const [statusInscription, setStatusInscription] = useState<number>(0);
 
   const [userForm, setUserForm] = useState<User>({
+    uid: "",
     firstname: "",
     lastname: "",
     email: "",
@@ -52,9 +58,13 @@ const Signin = (props: Props) => {
         lastname: userForm.lastname,
         profession: userForm.profession,
         children: userForm.children,
+        role: "Logged",
         sport: userForm.sport,
       };
-      registerUser(bodyRegister);
+      const result = await JoinFirebase(bodyRegister);
+      console.log(result);
+      // dispatch(updateUser);
+      // registerUser(bodyRegister);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -65,6 +75,22 @@ const Signin = (props: Props) => {
       onSubmit={(e) => handleSubmit(e)}
       className="font-source text-neutral-500 flex flex-col pt-8  gap-4 items-center"
     >
+      <button
+        type="button"
+        onClick={() => {
+          console.log(auth.currentUser);
+        }}
+      >
+        log user
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          console.log(user);
+        }}
+      >
+        log Redux User
+      </button>
       <h1 className="font-prompt mx-auto text-3xl font-bold text-neutral-500">
         Mon inscription
       </h1>

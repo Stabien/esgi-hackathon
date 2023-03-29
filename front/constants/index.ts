@@ -1,4 +1,5 @@
 import { ProfessionCategory, SportCategory } from "@/types";
+import { Content } from "@/types/content";
 import { Toast } from "react-hot-toast";
 
 export const SportList: SportCategory[] = [
@@ -36,4 +37,15 @@ export const toastOptions: Partial<
 > = {
   duration: 4000,
   position: "bottom-right",
+};
+
+export const defaultContent: Content = {
+  uid: "",
+  tags: [],
+  thumbnail: "",
+  banner: "",
+  title: "",
+  creationDate: 0,
+  type: "article",
+  text: "",
 };

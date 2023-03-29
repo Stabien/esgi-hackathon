@@ -20,6 +20,7 @@ export type SportCategory =
 export type Role = "Logged" | "Admin" | null;
 
 export type User = {
+  uid: string;
   email: string;
   firstname: string;
   lastname: string;
