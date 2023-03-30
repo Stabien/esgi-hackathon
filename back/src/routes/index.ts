@@ -1,7 +1,7 @@
 /** Controllers */
 import { Application } from 'express'
 import { getUserByUuid, authentication, registration } from '../controllers/userController'
-import { checkUserModel, checkUserTokenFormat, checkUserTokenUuid } from '../middlewares'
+import { checkUserTokenUuid } from '../middlewares'
 /** Models */
 
 /** Middlewares */

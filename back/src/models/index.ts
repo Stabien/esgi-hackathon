@@ -32,7 +32,7 @@ export const professionCategories = [
 export const sportCategories = ['Inactif', 'Faible activité', 'Actif', 'Très actif']
 export const contentTypes = ['article', 'video', 'podcast']
 
-interface UserModel extends Model {
+export interface UserModel extends Model {
   uuid: string
   email: string
   password: string
@@ -44,20 +44,23 @@ interface UserModel extends Model {
   sport: SportCategory
 }
 
-interface ContentModel extends Model {
+export interface ContentModel extends Model {
   uuid?: string
   type: ContentType
   title: string
-  tags: string[]
   thumbnail: string
   creationDate: number //timestamp
   text?: string
   url?: string
 }
 
-interface ImpressionModel extends Model {
-  contentUuid?: string
-  date: number //timestamp
+export interface ImpressionModel extends Model {
+  contentUuid: string
+}
+
+export interface TagModel extends Model {
+  contentUuid: string
+  name: string
 }
 
 /**
@@ -169,5 +172,27 @@ export const Impression = sequelize.define<ImpressionModel>(
   {
     timestamps: false,
     underscored: true,
+  },
+)
+
+export const Tag = sequelize.define<TagModel>(
+  'Tag',
+  {
+    contentUuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      references: {
+        model: 'content', // Can be both a string representing the table name or a Sequelize model
+        key: 'uuid',
+      },
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    underscored: true,
+    timestamps: false,
   },
 )

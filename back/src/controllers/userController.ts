@@ -91,7 +91,7 @@ export const registration = async (req: Request, res: Response): Promise<Respons
     })
     await newUser.save()
 
-    return res.status(201).json({ message: 'User created' })
+    return res.status(201).json(user)
   } catch (e) {
     return res.status(500).json({ error: e })
   }
@@ -107,7 +107,7 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
       ...req.body,
     })
 
-    return res.status(201).json({ message: 'User created' })
+    return res.status(200).json(user)
   } catch (e) {
     return res.status(500).json({ error: e })
   }
