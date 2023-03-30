@@ -137,10 +137,6 @@ export const Content = sequelize.define<ContentModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    tags: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
-    },
     thumbnail: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -149,7 +145,9 @@ export const Content = sequelize.define<ContentModel>(
     url: DataTypes.STRING,
   },
   {
+    timestamps: false,
     underscored: true,
+    tableName: 'content',
   },
 )
 

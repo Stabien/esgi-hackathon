@@ -19,7 +19,7 @@ export const register = async (
   } catch (e) {
     return e as Error;
   }
-};
+}
 
 export const login = async (body: {
   email: string;
@@ -40,7 +40,7 @@ export const login = async (body: {
     const data = await result.json();
     return data.user as User;
   }
-};
+}
 
 export const checkUser = (cb: Function) => {
   const token = localStorage.getItem("token");
@@ -60,4 +60,4 @@ export const checkUser = (cb: Function) => {
       })
       .then((data) => cb(data));
   }
-};
+}
