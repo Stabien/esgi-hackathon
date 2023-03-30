@@ -13,10 +13,10 @@ const checkIfUserAlreadyExists = async (email: string): Promise<boolean> => {
   return user !== null
 }
 
-export const getUserById = async (req: Request, res: Response): Promise<Response> => {
+export const getUserByUuid = async (req: Request, res: Response): Promise<Response> => {
   try {
     const user = await User.findOne({ where: { uuid: req.params.uuid } })
-    return res.status(200).json({ user })
+    return res.status(200).json(user)
   } catch (e) {
     return res.status(500).json({ error: e })
   }

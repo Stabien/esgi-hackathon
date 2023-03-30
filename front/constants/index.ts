@@ -1,5 +1,5 @@
 import { ProfessionCategory, SportCategory } from "@/types";
-import { Content } from "@/types/content";
+import { Content, TagsType } from "@/types/content";
 import { Toast } from "react-hot-toast";
 
 export const SportList: SportCategory[] = [
@@ -49,3 +49,21 @@ export const defaultContent: Content = {
   type: "article",
   text: "",
 };
+
+export const defaultTags: TagsType[] = [
+  "Médical et paramédical",
+  "Services financiers",
+  "Éducation",
+  "Ingénierie",
+  "Technologie de l'information",
+  "Marketing et publicité",
+  "Médias et communication",
+  "Droit",
+  "Services publics",
+  "Commerce de détail et de services",
+  "Sans emploi",
+  "Inactif",
+  "Faible activité",
+  "Actif",
+  "Très actif",
+];

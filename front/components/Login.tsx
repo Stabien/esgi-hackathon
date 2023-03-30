@@ -2,6 +2,7 @@ import { updateUser } from "@/redux/user/user.actions";
 import { Security } from "@/services";
 import React, { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 type Props = {};
 
@@ -12,9 +13,14 @@ const Login = (props: Props) => {
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await Security.login({ email: email, password: password });
-    if (result) {
-      dispatch(updateUser(result));
+    try {
+      const result = await Security.login({ email: email, password: password });
+      if (result) {
+        dispatch(updateUser(result));
+      }
+      toast(`Vous etes connecté avec ${email}`);
+    } catch (error: any) {
+      toast.error(error.message);
     }
     // Here you can implement your login logic using email and password state variables
   };
