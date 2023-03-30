@@ -1,6 +1,6 @@
 /** Controllers */
 import { Application } from 'express'
-import { getUserById, authentication, registration } from '../controllers/userController'
+import { getUserByUuid, authentication, registration } from '../controllers/userController'
 import { checkUserModel, checkUserTokenFormat, checkUserTokenUuid } from '../middlewares'
 /** Models */
 
@@ -10,7 +10,7 @@ import { checkUserModel, checkUserTokenFormat, checkUserTokenUuid } from '../mid
 const routes = (app: Application) => {
   app.route('/api/user/authentication').post(authentication)
   app.route('/api/user/registration').post(registration)
-  app.route('/api/user/:uuid').get(checkUserTokenUuid, getUserById)
+  app.route('/api/user/:uuid').get(checkUserTokenUuid, getUserByUuid)
 }
 
 export default routes
