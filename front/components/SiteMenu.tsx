@@ -1,4 +1,5 @@
 import { selectUser } from "@/redux/user/user.selectors";
+import { User } from "@/types";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -9,7 +10,7 @@ import StatIcon from "./Icons/StatIcon";
 type Props = {};
 
 function SiteMenu({}: Props) {
-  const user = useSelector(selectUser);
+  const user: User = useSelector(selectUser);
   return (
     <article
       style={{ gridArea: "menu" }}

@@ -17,10 +17,11 @@ const NewContent = (props: Props) => {
         creationDate: Date.now(),
       };
       delete newContent.uid;
+      console.log(newContent);
 
-      await addDoc(collection(db, "content"), newContent);
-      toast(`${contentForm.type} a été crée`);
-      setContentForm(defaultContent);
+      // await addDoc(collection(db, "content"), newContent);
+      toast(`${newContent.type} a été crée`);
+      // setContentForm(defaultContent);
     } catch (error: any) {
       toast.error(error.message);
     }

@@ -1,5 +1,6 @@
 import { LoginFirebase } from "@/services/db";
 import React, { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 
 type Props = {};
 
@@ -9,9 +10,14 @@ const Login = (props: Props) => {
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await LoginFirebase({ email: email, password: password });
-    console.log(result);
+    try {
+      console.log(password);
 
+      const result = await LoginFirebase({ email: email, password: password });
+      toast(`Vous etes connecté avec ${email}`);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
     // Here you can implement your login logic using email and password state variables
   };
 
