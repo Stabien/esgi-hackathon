@@ -34,6 +34,8 @@ export const JoinFirebase = async (body: RegistrationType): Promise<void> => {
     doc(db, "users", firebaseUserDocument.uid),
     firebaseUserDocument
   );
+  console.log("user created");
+  
 };
 
 export const LogoutFirebase = async () => {
