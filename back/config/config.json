@@ -4,7 +4,8 @@
     "password": "postgres",
     "database": "esgi_hackathon",
     "host": "localhost",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "use_env_variable": "DATABASE_URL"
   },
   "test": {
     "username": "postgres",

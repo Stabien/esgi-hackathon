@@ -24,7 +24,9 @@ const dbConfig = getConfig()
 console.log(dbConfig)
 const { user, password, host, port, database } = dbConfig
 
-const sequelize = new Sequelize(`postgres://${user}:${password}@${host}:${port}/${database}`)
+const sequelize = new Sequelize(
+  process.env.DATABASE_URL ?? `postgres://${user}:${password}@${host}:${port}/${database}`,
+)
 
 sequelize
   .authenticate()

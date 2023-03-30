@@ -7,4 +7,4 @@ COPY . .
 RUN npm install -g nodemon ts-node && npm install
 
 EXPOSE 4000
-CMD [ "npm", "run", "dev" ]
+CMD [ "sh", "-c", "npm install && npm run dev" ]
