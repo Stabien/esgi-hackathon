@@ -17,6 +17,15 @@ export const getContentByUuid = async (req: Request, res: Response): Promise<Res
   }
 }
 
+export const getAllContents = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const contents = await Content.findAll()
+    return res.status(200).json(contents)
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
+
 export const addContent = async (req: Request, res: Response): Promise<Response> => {
   const { title, type, tags, thumbnail } = req.body
 

@@ -1,6 +1,11 @@
 /** Controllers */
 import { Application } from 'express'
-import { addContent, getContentByUuid, updateContent } from '../controllers/contentController'
+import {
+  addContent,
+  getAllContents,
+  getContentByUuid,
+  updateContent,
+} from '../controllers/contentController'
 import {
   getUserByUuid,
   authentication,
@@ -23,6 +28,7 @@ const routes = (app: Application) => {
 
   app.route('/api/content/:uuid').get(getContentByUuid).put(updateContent).delete(getContentByUuid)
   app.route('/api/content/').post(addContent)
+  app.route('/api/contents').get(getAllContents)
 }
 
 export default routes
