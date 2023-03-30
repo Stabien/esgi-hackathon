@@ -1,6 +1,8 @@
+import { ProfessionCategory, SportCategory } from "@/types";
+
 export type ContentType = "article" | "video" | "podcast";
 
-export type TagsType = string;
+export type TagsType = ProfessionCategory | SportCategory;
 
 export type BaseContent = {
   uid: string;
