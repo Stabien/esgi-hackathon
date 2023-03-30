@@ -413,8 +413,7 @@ const Signin = (props: Props) => {
             type="submit"
             className="px-5 py-2 rounded text-neutral-350 border border-yellow-200 bg-yellow-150"
           >
-            {" "}
-            S'inscrire
+            {"S'inscrire "}
           </button>
         )}
       </div>

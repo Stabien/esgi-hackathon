@@ -29,5 +29,5 @@ export type User = {
   sport: SportCategory;
   children: number;
   role: Role;
-  token: string | undefined;
+  token?: string | undefined;
 };
