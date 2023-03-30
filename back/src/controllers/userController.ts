@@ -52,8 +52,17 @@ export const authentication = async (req: Request, res: Response): Promise<Respo
 }
 
 export const registration = async (req: Request, res: Response): Promise<Response> => {
-  const { email, password, confirmPassword, firstname, lastname, dateOfBirth, profession, children, sport } =
-    req.body
+  const {
+    email,
+    password,
+    confirmPassword,
+    firstname,
+    lastname,
+    dateOfBirth,
+    profession,
+    children,
+    sport,
+  } = req.body
 
   if (password !== confirmPassword) {
     return res.status(422).json({ error: "Passwords don't match" })
@@ -92,10 +101,10 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
   const { uuid } = req.params
 
   try {
-    const user = await User.create({ uuid: req.params.uuid })
-    
+    const user = await User.create({ uuid })
+
     user.update({
-      ...req.body
+      ...req.body,
     })
 
     return res.status(201).json({ message: 'User created' })
@@ -103,22 +112,3 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
     return res.status(500).json({ error: e })
   }
 }
-
-// export const emailConfirmation = async (req: Request, res: Response): Promise<Response> => {
-//   const { confirmationCode } = req.params
-
-//   try {
-//     const user = await User.findOne({ where: { confirmationCode } })
-
-//     if (user !== null) {
-//       await User.update({ isVerified: true }, { where: { confirmationCode } })
-//       return res.status(200).json({ message: 'User verified' })
-//     } else {
-//       return res.status(404).json({ message: 'User not found' })
-//     }
-//   } catch (e) {
-//     return res.status(500).json({ error: e })
-//   }
-// }
-
-
