@@ -1,17 +1,21 @@
-import { LoginFirebase } from "@/services/db";
+import { updateUser } from "@/redux/user/user.actions";
+import { Security } from "@/services";
 import React, { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 
 type Props = {};
 
 const Login = (props: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await LoginFirebase({ email: email, password: password });
-    console.log(result);
-
+    const result = await Security.login({ email: email, password: password });
+    if (result) {
+      dispatch(updateUser(result));
+    }
     // Here you can implement your login logic using email and password state variables
   };
 

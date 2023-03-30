@@ -11,6 +11,9 @@ export const resetUser = () => {
 };
 
 export const updateUser = (user: User) => {
+  if (user.token) {
+    localStorage.setItem("token", user.token);
+  }
   return {
     type: "user/updateUser",
     payload: user,
