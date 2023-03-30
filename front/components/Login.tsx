@@ -37,7 +37,7 @@ const Login = (props: Props) => {
 
   return (
     <div className="grid-cols-1">
-      <h1 className="w-fit m-auto my-8 mt-24 text-4xl font-semibolds">Connexion</h1>
+      <h1 className="w-fit m-auto my-8 mt-8 text-4xl font-semibolds">Connexion</h1>
       <form
         className="w-fit m-auto flex flex-col"
         onSubmit={(e) => handleLogin(e)}
@@ -69,10 +69,10 @@ const Login = (props: Props) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <a href="/" className="text-right text-slate-400 -mt-2">J'ai oublié mon Mot de Pass</a>
+          <a href="/" className="text-right text-slate-400 -mt-1.5">J'ai oublié mon Mot de Pass</a>
         </div>
         <div className="flex justify-between">
-          <button type="submit" className="rounded-md bg-amber-600 w-60 h-20 ml-auto mr-0">Login</button>
+          <button type="submit" className="rounded-md bg-yellow-150 px-12 py-4 mt-6 ml-auto mr-0">Login</button>
         </div>
 
 
