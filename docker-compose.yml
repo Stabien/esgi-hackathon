@@ -16,7 +16,10 @@ services:
       - "4000:4000"
     volumes:
       - ./back:/home/app
-      - /home/app/node_modules
+      #- /home/app/node_modules
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@database:5432/postgres
+      JWT_KEY: ChangeMeImCritical
     depends_on:
       - database
 
@@ -26,7 +29,7 @@ services:
       - "3000:3000"
     volumes:
       - ./front:/home/app
-      - /home/app/node_modules
+      #- /home/app/node_modules
       - /home/app/.next
 
 volumes:
