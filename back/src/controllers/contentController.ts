@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
-import { config } from 'dotenv'
 import crypto from 'crypto'
-import { Content } from '../models'
+import { Content, Impression } from '../models'
 
 const checkIfContentAlreadyExists = async (title: string): Promise<boolean> => {
   const content = await Content.findOne({ where: { title } })
@@ -13,7 +12,7 @@ export const getContentByUuid = async (req: Request, res: Response): Promise<Res
   const { uuid } = req.params
 
   try {
-    const content = await Content.findOne({ where: { uuid } })
+    const content = await Content.findOne({ where: { uuid }, include: [{ model: Impression }] })
 
     return res.status(200).json({ content })
   } catch (e) {

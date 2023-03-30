@@ -101,7 +101,7 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
   const { uuid } = req.params
 
   try {
-    const user = await User.create({ uuid: req.params.uuid })
+    const user = await User.create({ uuid })
 
     user.update({
       ...req.body,
