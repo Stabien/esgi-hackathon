@@ -26,39 +26,46 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div>
-      <h1 className="w-fit m-auto">Login</h1>
+    <div className="grid-cols-1">
+      <h1 className="w-fit m-auto my-8 mt-24 text-4xl font-semibolds">Connexion</h1>
       <form
         className="w-fit m-auto flex flex-col"
         onSubmit={(e) => handleLogin(e)}
       >
-        <div className="flex gap-2 mb-3 mx-auto flex-col w-fit">
+        <div className="flex gap-2 mb-3 mx-auto flex-col w-fit text-slate-500">
           <label className="" htmlFor="email">
-            Email
+            E-mail / ID mutuelle
           </label>
           <input
-            className="border border-gray-700 w-40 rounded"
+            className="border border-gray-700 w-80 h-12 px-3 rounded placeholder-shown:border-gray-500"
             type="email"
             id="email"
             value={email}
+            placeholder="theomorrrin@gmail.com"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <div className="flex gap-2 flex-col mx-auto w-fit">
-          <label className="" htmlFor="password">
+        <div className="flex gap-2 flex-col mx-auto w-fit text-slate-500">
+          <label className="pt-4" htmlFor="password">
             Password
           </label>
           <input
-            className="border border-gray-700 w-40 rounded"
+            className="border border-gray-700 w-80 h-12 px-3 rounded placeholder-shown:border-gray-500"
             type="password"
             id="password"
             value={password}
+            placeholder="Mot de passe"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <a href="/" className="text-right text-slate-400 -mt-2">J'ai oublié mon Mot de Pass</a>
         </div>
-        <button type="submit">Login</button>
+        <div className="flex justify-between">
+          <button type="submit" className="rounded-md bg-amber-600 w-60 h-20 ml-auto mr-0">Login</button>
+        </div>
+
+
         {/* <button
           className="border border-yellow-200 px-32 py-5 bg-yellow-150 rounded mt-10 shadow-md"
           type="submit"
