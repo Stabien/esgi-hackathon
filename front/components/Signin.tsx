@@ -7,7 +7,8 @@ import { Security } from "@/services";
 import { ProfessionCategory, User } from "@/types";
 import { RegistrationType } from "@/types/security.types";
 import { arrayToSelect } from "@/utils/display";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/router";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,6 +17,7 @@ type Props = {};
 const Signin = (props: Props) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const childrenList = [1, 2, 3, 4, 5];
   const [isDisplaySelectJob, setIsDisplaySelectJob] = useState<boolean>(false);
@@ -56,12 +58,16 @@ const Signin = (props: Props) => {
       };
       const result = await Security.register(bodyRegister);
       console.log(result);
-      // dispatch(updateUser);
-      // registerUser(bodyRegister);
     } catch (error: any) {
       toast.error(error.message);
     }
   };
+
+  useEffect(() => {
+    if (user.role !== null) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <form
@@ -413,8 +419,7 @@ const Signin = (props: Props) => {
             type="submit"
             className="px-5 py-2 rounded text-neutral-350 border border-yellow-200 bg-yellow-150"
           >
-            {" "}
-            S'inscrire
+            {"S'inscrire "}
           </button>
         )}
       </div>

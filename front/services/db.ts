@@ -1,6 +1,6 @@
 import { auth, db } from "@/constants/db";
-import { RegistrationType } from "@/services";
 import { User } from "@/types";
+import { RegistrationType } from "@/types/security.types";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -34,6 +34,8 @@ export const JoinFirebase = async (body: RegistrationType): Promise<void> => {
     doc(db, "users", firebaseUserDocument.uid),
     firebaseUserDocument
   );
+  console.log("user created");
+  
 };
 
 export const LogoutFirebase = async () => {

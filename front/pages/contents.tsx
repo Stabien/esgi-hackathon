@@ -1,3 +1,4 @@
+import ContentList from "@/components/ContentList";
 import { LayoutAdmin } from "@/components/LayoutAdmin";
 import { db } from "@/constants/db";
 import { getAllContents, getContentByTags } from "@/services/content.backend";
@@ -28,14 +29,7 @@ const ContentPage = (props: Props) => {
 
   return (
     <LayoutAdmin>
-      <div>
-        {contentList.map((content) => (
-          <div key={content.uid}>
-            {content.uid}{" "}
-            <Link href={`/edit-content/${content.uid}`}>edit</Link>{" "}
-          </div>
-        ))}
-      </div>
+      <ContentList />
     </LayoutAdmin>
   );
 };

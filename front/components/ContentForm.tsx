@@ -66,9 +66,6 @@ const ContentForm = ({ form, setForm }: Props) => {
 
   return (
     <div className="font-prompt">
-      <h1 className="text-xl text-neutral-500 py-8 font-bold">
-        Création d’une nouvelle campagne
-      </h1>
       <section className="flex gap-8  items-center justify-center">
         {contentTypeList.map((content) => (
           <div
@@ -140,22 +137,26 @@ const ContentForm = ({ form, setForm }: Props) => {
               setForm((prevState) => ({ ...prevState, tags: newTags }));
             }}
           />
-          <div className="w-full rounded-lg px-4 py-2 gap-4 bg-white text-neutral-500 flex flex-wrap">
-            {form.tags.map((tag) => (
-              <div
-                key={tag}
-                className={`${getRandomBackground()}  rounded-full flex items-center gap-4 px-2 py-1 text-white`}
-              >
-                {tag}
-                <span
-                  className="cursor-pointer"
-                  onClick={() => handleDeleteTags(tag)}
+          {form.tags.length > 0 && (
+            <div className="w-full rounded-lg px-4 py-2 gap-4 bg-white text-neutral-500 flex flex-wrap">
+              {form.tags.map((tag, i) => (
+                <div
+                  key={tag}
+                  className={`${getRandomBackground(
+                    i
+                  )}  rounded flex items-center gap-4 px-2 py-1 text-white`}
                 >
-                  <PlusIcon rotation={45} />
-                </span>
-              </div>
-            ))}
-          </div>
+                  {tag}
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => handleDeleteTags(tag)}
+                  >
+                    <PlusIcon rotation={45} />
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
         <section
           style={{ gridArea: "content" }}
