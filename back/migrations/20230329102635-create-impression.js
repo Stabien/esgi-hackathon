@@ -14,14 +14,10 @@ module.exports = {
             key: 'uuid',
           },
         },
-        date: {
-          type: Sequelize.DataTypes.DATE,
-          allowNull: false,
-        },
       },
       {
-        timestamps: false,
         underscored: true,
+        timestamps: false,
       },
     )
   },

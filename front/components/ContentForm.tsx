@@ -1,9 +1,11 @@
-import { defaultContent } from "@/constants";
+import { defaultContent, defaultTags } from "@/constants";
 import { db } from "@/constants/db";
+import Select from "react-select";
 import {
   ArticleContent,
   Content,
   ContentType,
+  TagsType,
   VideoContent,
 } from "@/types/content";
 import { addDoc, collection } from "firebase/firestore";
@@ -48,6 +50,11 @@ const ContentForm = ({ form, setForm }: Props) => {
       };
       setForm(newContent);
     }
+  };
+
+  const handleDeleteTags = (tag: TagsType) => {
+    const newTags = [...form.tags.filter((t) => t !== tag)];
+    setForm((prevState) => ({ ...prevState, tags: newTags }));
   };
 
   return (
@@ -100,7 +107,7 @@ const ContentForm = ({ form, setForm }: Props) => {
       </section>
       <section>
         <p>Tags</p>
-        <input
+        {/* <input
           type="text"
           name="title"
           value={currentTag}
@@ -113,10 +120,23 @@ const ContentForm = ({ form, setForm }: Props) => {
             }
           }}
           onChange={(e) => setCurrentTag(e.target.value)}
+        /> */}
+        <Select
+          options={defaultTags.map((t) => ({ label: t, value: t }))}
+          onChange={(e) => {
+            if (!e) return;
+            const newTags: TagsType[] = [...form.tags];
+            if (newTags.includes(e.value)) return;
+
+            newTags.push(e.value);
+            setForm((prevState) => ({ ...prevState, tags: newTags }));
+          }}
         />
         <div>
           {form.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
+            <div key={tag}>
+              {tag} <span onClick={() => handleDeleteTags(tag)}>X</span>
+            </div>
           ))}
         </div>
       </section>
