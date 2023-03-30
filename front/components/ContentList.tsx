@@ -1,8 +1,7 @@
 import { db } from "@/constants/db";
+import { getAllContents } from "@/services/content.backend";
 import { Content, ContentType } from "@/types/content";
 import { formatTimestamp, getRandomBackground } from "@/utils/display";
-import { collection, getDocs } from "firebase/firestore";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 type Props = {};
@@ -12,10 +11,10 @@ const ContentList = (props: Props) => {
 
   const fetchContent = async () => {
     const newContentList: Content[] = [];
-    const result = await getDocs(collection(db, "content"));
-    result.forEach((doc) => {
-      newContentList.push({ ...(doc.data() as Content), uid: doc.id });
-      // doc.data() is never undefined for query doc snapshots
+    const result = (await getAllContents()) as Content[]
+    
+    result.forEach((content) => {
+      newContentList.push({ ...(content), uuid: content.uuid });
     });
     setContentList(newContentList);
   };
@@ -28,16 +27,6 @@ const ContentList = (props: Props) => {
       <h1 className="text-xl text-neutral-500 py-8 font-bold">
         Toutes nos campagnes
       </h1>
-      <div
-        style={contentGridTemplateAreas}
-        className="grid grid-cols-content gap-4 px-4 mb-4"
-      >
-        {gridTitleList.map((g) => (
-          <span style={{ gridArea: g.g }} className=" text-neutral-500 py-2">
-            {g.v}
-          </span>
-        ))}
-      </div>
       <div className="flex flex-col gap-4">
         {contentList.map((content) => (
           <ContentItem content={content} />
@@ -57,7 +46,7 @@ export const ContentItem = ({ content }: { content: Content }) => {
         onClick={() => setOpened(!opened)}
         style={contentGridTemplateAreas}
         className="z-20 grid grid-cols-content items-center gap-4 w-full rounded-lg px-4 py-2 bg-white text-neutral-500 shadow "
-        key={content.uid}
+        key={content.uuid}
       >
         <span
           style={{ gridArea: "type" }}
@@ -72,7 +61,7 @@ export const ContentItem = ({ content }: { content: Content }) => {
         <span style={{ gridArea: "creationDate" }} className="">
           {formatTimestamp(content.creationDate)}
         </span>
-        {/* {content.uid} <Link href={`/edit-content/${content.uid}`}>edit</Link>{" "} */}
+        {/* {content.uuid} <Link href={`/edit-content/${content.uuid}`}>edit</Link>{" "} */}
       </div>
       {opened && (
         <div className=" w-full  bg-white z-10 pt-8 -translate-y-2 p-4 flex flex-col gap-4">

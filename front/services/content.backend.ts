@@ -1,11 +1,12 @@
-import { TagsType } from '@/types/content'
+import { Content, TagsType } from '@/types/content'
 
 export const getAllContents = async (
-): Promise<Response | Error> => {
+): Promise<Content[] | Error> => {
   try {
     const result = await fetch("http://localhost:4000/api/contents")
-    console.log(result)
-    return result;
+    const data = await result.json()
+
+    return data
   } catch (e) {
     return e as Error;
   }
@@ -13,7 +14,7 @@ export const getAllContents = async (
 
 export const getContentByTags = async (
   body: TagsType[]
-): Promise<Response | Error> => {
+): Promise<Content[] | Error> => {
   try {
     const result = await fetch("http://localhost:4000/api/content/tags", {
       method: "POST",
@@ -22,8 +23,9 @@ export const getContentByTags = async (
       },
       body: JSON.stringify(body),
     });
-    console.log(result)
-    return result;
+    
+    const data = await result.json()
+    return data
   } catch (e) {
     return e as Error;
   }
