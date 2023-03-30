@@ -1,3 +1,5 @@
+import { ProfessionCategory, SportCategory, Role } from "@/types";
+
 export type RegistrationType = {
   email: string;
   password: string;

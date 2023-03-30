@@ -1,6 +1,6 @@
 import { auth, db } from "@/constants/db";
-import { RegistrationType } from "@/services";
 import { User } from "@/types";
+import { RegistrationType } from "@/types/security.types";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
