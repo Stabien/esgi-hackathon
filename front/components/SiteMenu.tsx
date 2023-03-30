@@ -12,23 +12,11 @@ type Props = {};
 function SiteMenu({}: Props) {
   const user: User = useSelector(selectUser);
   return (
-    <article
-      style={{ gridArea: "menu" }}
-      className="flex  flex-col box-border sticky left-0 top-0 overflow-y-hidden h-screen px-8 pt-4"
-    >
+    <article style={{ gridArea: "menu" }} className="flex  flex-col box-border sticky left-0 top-0 overflow-y-hidden h-screen px-8 pt-4">
+     
       <Link href="/">
         <img src="/jaji.svg" alt="" />
       </Link>
-      <div className=" mt-10 flex flex-col gap-4">
-        <div className="flex gap-2 flex-col">
-          <HomeIcon />
-          <PlusIcon />
-          <StatIcon />
-          <Link href="/">Home</Link>
-          <Link href="/contents">content</Link>
-          <Link href="/new-content">new content</Link>
-        </div>
-
         {user.role === null ? (
           <>
             <Link href="/login">Login</Link>
@@ -39,34 +27,39 @@ function SiteMenu({}: Props) {
         )}
         {user.role === "Admin" && (
           <>
-            <div>
-              Contenu
-              <select className="truncate w-fit h-0 hover:h-fit">
-                <option className="flex gap-2">
-                  <PlusIcon />
+            <div className="text-neutral-500 my-5">
+              <div className="flex flew-row gap-5">
+                <div className="my-auto h-fit"><PlusIcon size="20"/> </div>
+                <div className="font-semibold text-2xl">Contenu</div> 
+              </div>
+              <div className="flex flex-col ml-10 justify-start">
+                <div className="text-sm">
                   <Link href="/new-content">Nouvel article</Link>
-                </option>
-                <option className="flex gap-2">
-                  <Link href="/">Tous les contenus</Link>
-                </option>
-              </select>
-            </div>
+                </div>
+                <div className="text-sm">
+                  <Link href="/content">Tous les contenus</Link>
+                </div>
+              </div>
+          </div>
 
-            <div>
-              Statistique
-              <select>
-                <option className="flex gap-2">
-                  <StatIcon />
-                  <Link href="/new-content">Cient</Link>
-                </option>
-                <option className="flex gap-2">
-                  <Link href="/">Campagne</Link>
-                </option>
-              </select>
+            <div className="text-neutral-500 ">
+              <div className="flex flew-row gap-5">
+                <div className="my-auto h-fit"><StatIcon size="20"/></div>
+                <div className="font-semibold text-2xl">Client</div> 
+              </div>
+              <div className="flex flex-col ml-10 justify-start">
+                <div className="text-sm">
+                <Link href="/new-content">Campagnes</Link>
+                </div>
+                <div className="text-sm">
+                  <Link href="/content">Tous les contenus</Link>
+                </div>
+              </div>
             </div>
-          </>
+            
+       </>
+      
         )}
-      </div>
     </article>
   );
 }
