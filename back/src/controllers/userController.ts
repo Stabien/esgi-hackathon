@@ -91,7 +91,7 @@ export const registration = async (req: Request, res: Response): Promise<Respons
     })
     await newUser.save()
 
-    return res.status(201).json(user)
+    return res.status(201).json(newUser)
   } catch (e) {
     return res.status(500).json({ error: e })
   }
