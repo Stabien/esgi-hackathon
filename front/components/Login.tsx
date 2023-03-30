@@ -1,5 +1,7 @@
-import { LoginFirebase } from "@/services/db";
+import { updateUser } from "@/redux/user/user.actions";
+import { Security } from "@/services";
 import React, { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
 type Props = {};
@@ -7,13 +9,15 @@ type Props = {};
 const Login = (props: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log(password);
-
-      const result = await LoginFirebase({ email: email, password: password });
+      const result = await Security.login({ email: email, password: password });
+      if (result) {
+        dispatch(updateUser(result));
+      }
       toast(`Vous etes connecté avec ${email}`);
     } catch (error: any) {
       toast.error(error.message);

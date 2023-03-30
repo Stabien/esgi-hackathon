@@ -2,19 +2,12 @@ import ArrowIcon from "@/components/Icons/ArrowIcon";
 import Select from "@/components/Select";
 import { ProfessionList, SportList } from "@/constants";
 import { auth } from "@/constants/db";
-import { updateUser } from "@/redux/user/user.actions";
 import { selectUser } from "@/redux/user/user.selectors";
-import { registerUser, RegistrationType } from "@/services";
-import { JoinFirebase } from "@/services/db";
+import { Security } from "@/services";
 import { ProfessionCategory, User } from "@/types";
+import { RegistrationType } from "@/types/security.types";
 import { arrayToSelect } from "@/utils/display";
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  FormEvent,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -61,7 +54,7 @@ const Signin = (props: Props) => {
         role: "Logged",
         sport: userForm.sport,
       };
-      const result = await JoinFirebase(bodyRegister);
+      const result = await Security.register(bodyRegister);
       console.log(result);
       // dispatch(updateUser);
       // registerUser(bodyRegister);
@@ -309,7 +302,9 @@ const Signin = (props: Props) => {
                 }))
               }
             />
-            <label className="text-neutral-300">Nom</label>
+            <label htmlFor="name" className="text-neutral-300">
+              Nom
+            </label>
 
             <input
               required
@@ -317,6 +312,7 @@ const Signin = (props: Props) => {
               placeholder="Nom"
               className="border border-neutral-150 px-4 py-2 rounded"
               name="lastname"
+              id="name"
               value={userForm.lastname}
               onChange={(event: ChangeEvent) =>
                 setUserForm((prevState) => ({
@@ -325,12 +321,14 @@ const Signin = (props: Props) => {
                 }))
               }
             />
-            <label className="text-neutral-300">Date de naissance</label>
+            <label htmlFor="birthday" className="text-neutral-300">
+              Date de naissance
+            </label>
 
             <input
               type="date"
-              name=""
-              id=""
+              name="birthday"
+              id="birthday"
               required
               className="border border-neutral-150 px-4 py-2 rounded"
               onChange={(e) => {
@@ -341,11 +339,14 @@ const Signin = (props: Props) => {
                 }));
               }}
             />
-            <label className="text-neutral-300">Email</label>
+            <label htmlFor="email" className="text-neutral-300">
+              Email
+            </label>
             <input
               required
               type="email"
               name="email"
+              id="email"
               className="border border-neutral-150 px-4 py-2 rounded"
               placeholder="Email"
               value={userForm.email}
@@ -356,19 +357,25 @@ const Signin = (props: Props) => {
                 }))
               }
             />
-            <label className="text-neutral-300">Password</label>
+            <label htmlFor="password" className="text-neutral-300">
+              Password
+            </label>
             <input
               type="password"
               required
+              id="password"
               placeholder="Password"
               className="border border-neutral-150 px-4 py-2 rounded"
               onChange={(event: ChangeEvent) =>
                 setPassword((event.target as HTMLInputElement).value)
               }
             />
-            <label className="text-neutral-300">Confirm password</label>
+            <label htmlFor="confirmPassword" className="text-neutral-300">
+              Confirm password
+            </label>
             <input
               type="password"
+              id="confirmPassword"
               required
               placeholder="Confirm Password"
               className="border border-neutral-150 px-4 py-2 rounded"

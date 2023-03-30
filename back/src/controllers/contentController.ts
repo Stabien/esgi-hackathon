@@ -1,14 +1,26 @@
 import { Request, Response } from 'express'
 import crypto from 'crypto'
-import { Content, Impression } from '../models'
+import { Content, ContentModel, Impression, Tag } from '../models'
 
 export const getContentByUuid = async (req: Request, res: Response): Promise<Response> => {
   const { uuid } = req.params
 
   try {
-    const content = await Content.findOne({ where: { uuid }, include: [{ model: Impression }] })
+    const content = await Content.findOne({
+      where: { uuid },
+      include: [{ model: Impression }, { model: Tag }],
+    })
 
-    return res.status(200).json({ content })
+    return res.status(200).json(content)
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
+
+export const getAllContents = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const contents = await Content.findAll()
+    return res.status(200).json(contents)
   } catch (e) {
     return res.status(500).json({ error: e })
   }
@@ -26,7 +38,14 @@ export const addContent = async (req: Request, res: Response): Promise<Response>
     const newContent = await Content.create({ uuid, title, tags, type, text, thumbnail, url })
     await newContent.save()
 
-    return res.status(201).json({ message: 'Content created' })
+    await Promise.all(
+      tags.map(async (tag: string) => {
+        const newTag = await Tag.create({ uuid, name: tag })
+        await newTag.save()
+      }),
+    )
+
+    return res.status(201).json(newContent)
   } catch (e) {
     return res.status(500).json({ error: e })
   }
@@ -41,7 +60,19 @@ export const updateContent = async (req: Request, res: Response): Promise<Respon
     content.update({
       ...req.body,
     })
-    await content.save()
+
+    await Tag.destroy({
+      where: {
+        contentUuid: uuid,
+      },
+    })
+
+    await Promise.all(
+      req.body.tags.map(async (tag: string) => {
+        const newTag = await Tag.create({ uuid, name: tag })
+        await newTag.save()
+      }),
+    )
 
     return res.status(200).json({ content })
   } catch (e) {
@@ -58,7 +89,26 @@ export const deleteContent = async (req: Request, res: Response): Promise<Respon
         uuid,
       },
     })
-    return res.status(200).json({ message: 'Content deleted' })
+    return res.status(204)
+  } catch (e) {
+    return res.status(500).json({ error: e })
+  }
+}
+
+export const getContentByTags = async (req: Request, res: Response): Promise<Response> => {
+  const { tags } = req.body
+  const contents: ContentModel[] = []
+
+  try {
+    await Promise.all(
+      tags.map(async (tag: string) => {
+        const contentUuids = await Tag.findAll({ where: { name: tag } })
+        const content = await Content.findOne({ where: { uuid: contentUuids } })
+
+        contents.push(content as ContentModel)
+      }),
+    )
+    return res.status(200).json(contents)
   } catch (e) {
     return res.status(500).json({ error: e })
   }

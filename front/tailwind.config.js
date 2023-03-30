@@ -16,6 +16,7 @@ module.exports = {
       gridTemplateColumns: {
         menu: "auto 1fr",
         "menu-mobile": "1fr auto 1fr",
+        content: "2fr 3fr 2fr 1fr",
       },
       gridTemplateRows: {
         menu: "auto 1fr",
