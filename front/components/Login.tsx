@@ -1,12 +1,16 @@
 import { updateUser } from "@/redux/user/user.actions";
 import { Security } from "@/services";
-import React, { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { selectUser } from "@/redux/user/user.selectors";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 const Login = (props: Props) => {
+  const user = useSelector(selectUser);
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -24,6 +28,12 @@ const Login = (props: Props) => {
     }
     // Here you can implement your login logic using email and password state variables
   };
+
+  useEffect(() => {
+    if (user.role !== null) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <div>
