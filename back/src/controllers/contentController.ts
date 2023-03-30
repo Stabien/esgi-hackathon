@@ -2,12 +2,6 @@ import { Request, Response } from 'express'
 import crypto from 'crypto'
 import { Content, Impression } from '../models'
 
-const checkIfContentAlreadyExists = async (title: string): Promise<boolean> => {
-  const content = await Content.findOne({ where: { title } })
-
-  return content !== null
-}
-
 export const getContentByUuid = async (req: Request, res: Response): Promise<Response> => {
   const { uuid } = req.params
 
@@ -28,11 +22,6 @@ export const addContent = async (req: Request, res: Response): Promise<Response>
 
   try {
     const uuid = crypto.randomUUID()
-    const doesContentAlreadyExists = await checkIfContentAlreadyExists(title)
-
-    if (doesContentAlreadyExists) {
-      return res.status(422).json({ error: 'Content already created' })
-    }
 
     const newContent = await Content.create({ uuid, title, tags, type, text, thumbnail, url })
     await newContent.save()
