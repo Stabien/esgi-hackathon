@@ -34,7 +34,7 @@ const ContentForm = ({ form, setForm }: Props) => {
       if (form.type === "article") return;
       const newContent: ArticleContent = {
         type: content,
-        createdAt: form.createdAt,
+        creationDate: form.creationDate,
         tags: form.tags,
         thumbnail: form.thumbnail,
         banner: form.banner,
@@ -46,7 +46,7 @@ const ContentForm = ({ form, setForm }: Props) => {
     } else {
       const newContent: VideoContent = {
         type: content,
-        createdAt: form.createdAt,
+        creationDate: form.creationDate,
         tags: form.tags,
         thumbnail: form.thumbnail,
         banner: form.banner,
@@ -127,7 +127,7 @@ const ContentForm = ({ form, setForm }: Props) => {
             Ajouter des Tags
           </p>
           <Select
-          menuPlacement="top"
+            menuPlacement="top"
             options={defaultTags.map((t) => ({ label: t, value: t }))}
             onChange={(e) => {
               if (!e) return;
