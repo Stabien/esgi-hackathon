@@ -1,4 +1,5 @@
 import ContentForm from "@/components/ContentForm";
+import ArrowIcon from "@/components/Icons/ArrowIcon";
 import { defaultContent } from "@/constants";
 import { db } from "@/constants/db";
 import { Content } from "@/types/content";
@@ -17,19 +18,22 @@ const NewContent = (props: Props) => {
         creationDate: Date.now(),
       };
       delete newContent.uid;
-      console.log(newContent);
-
-      // await addDoc(collection(db, "content"), newContent);
+      //await addDoc(collection(db, "content"), newContent);
       toast(`${newContent.type} a été crée`);
-      // setContentForm(defaultContent);
+      setContentForm(defaultContent);
     } catch (error: any) {
       toast.error(error.message);
     }
   };
   return (
-    <div>
+    <div className="flex flex-col items-end gap-4">
       <ContentForm form={contentForm} setForm={setContentForm} />
-      <button onClick={handleSubmit}>Log form</button>
+      <button
+        onClick={handleSubmit}
+        className="rounded flex items-center gap-4 bg-white shadow px-4 py-2 text-neutral-500 justify-center"
+      >
+        Enregister <ArrowIcon rotation={180} />
+      </button>
     </div>
   );
 };

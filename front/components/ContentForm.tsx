@@ -34,24 +34,24 @@ const ContentForm = ({ form, setForm }: Props) => {
       if (form.type === "article") return;
       const newContent: ArticleContent = {
         type: content,
-        creationDate: form.creationDate,
+        createdAt: form.createdAt,
         tags: form.tags,
         thumbnail: form.thumbnail,
         banner: form.banner,
         text: "",
         title: form.title,
-        uid: form.uid,
+        uuid: form.uuid,
       };
       setForm(newContent);
     } else {
       const newContent: VideoContent = {
         type: content,
-        creationDate: form.creationDate,
+        createdAt: form.createdAt,
         tags: form.tags,
         thumbnail: form.thumbnail,
         banner: form.banner,
         title: form.title,
-        uid: form.uid,
+        uuid: form.uuid,
         description: "",
         url: "",
       };
@@ -65,7 +65,7 @@ const ContentForm = ({ form, setForm }: Props) => {
   };
 
   return (
-    <div className="font-prompt">
+    <div className="font-prompt w-full">
       <section className="flex gap-8  items-center justify-center">
         {contentTypeList.map((content) => (
           <div
