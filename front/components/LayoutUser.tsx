@@ -46,21 +46,25 @@ const LayoutUser = ({ children }: LayoutProps) => {
         <div className=""></div>
       </div>
       {isMenuOpened && (
-        <div className="absolute mt-16 py-8 z-10 w-screen top-0 left-0 bg-white flex flex-col gap-2 text-blue-350 rounded-lg shadow-md">
+        <div className="absolute mt-16 py-8 z-10 w-screen top-0 left-0 flex flex-col gap-2 text-neutral-300 items-center shadow-md bg-white">
+          <Link href="/" className="py-2 px-8 hover:underline text-lg">
+            Acceuil
+          </Link>
+          {user.role === "Admin" && (
+            <Link href="/admin">Pannel administrateur</Link>
+          )}
           {user.role === null ? (
             <>
-              <Link href="/login">Login</Link>
-              <Link href="/signin">Signin</Link>
+              <Link
+                href="/login"
+                className="py-2 px-8 border-2 border-neutral-300 rounded hover:text-white hover:bg-neutral-300"
+              >
+                Login
+              </Link>
             </>
           ) : (
             <Link href="/logout">Logout</Link>
           )}
-          <Link className="w-fit m-auto hover:text-blue-300" href="/">
-            Content
-          </Link>
-          <Link className="w-fit m-auto hover:text-blue-300" href="/">
-            Log Out
-          </Link>
         </div>
       )}
       <main className="">{children}</main>
