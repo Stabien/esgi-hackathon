@@ -60,8 +60,8 @@ export interface ImpressionModel extends Model {
 }
 
 export interface TagModel extends Model {
-  contentUuid: string
-  tagName: string
+  content_uuid: string
+  tag_name: string
 }
 
 /**
@@ -142,7 +142,7 @@ export const Content = sequelize.define<ContentModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    createdAt: {
+    creationDate: {
       type: DataTypes.STRING,
       allowNull: false,
     },

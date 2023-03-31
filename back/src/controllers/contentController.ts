@@ -29,13 +29,15 @@ export const getAllContents = async (req: Request, res: Response): Promise<Respo
     })
 
     const contentWithTags = contents.map((content) => {
-      content.tags = []
-
+      content.dataValues.tags = []
       for (const tag of tags) {
-        if (tag.contentUuid === content.uuid) {
-          content.tags.push(tag.tagName)
+        // console.log(tag.dataValues.content_uuid, content.uuid)
+        // console.log(tag.dataValues.content_uuid === content.uuid)
+        if (tag.dataValues.content_uuid === content.uuid) {
+          content.dataValues.tags.push(tag.dataValues.tag_name)
         }
       }
+      console.log(content)
       return content
     })
 
@@ -119,19 +121,22 @@ export const getContentByTags = async (req: Request, res: Response): Promise<Res
   const contents: ContentModel[] = []
 
   try {
-    console.log('test')
     await Promise.all(
       tags.map(async (tag: string) => {
-        console.log(tag)
         const tagMatching = await Tag.findAll({
           where: { tagName: tag },
           attributes: ['content_uuid'],
         })
 
-        const contentUuids = tagMatching.map((tag) => tag.contentUuid)
+        const contentUuids = tagMatching.map((tag: any) => {
+          tag.dataValues.content_uuid
+          return tag.dataValues.content_uuid
+        })
         const content = await Content.findOne({ where: { uuid: contentUuids } })
 
-        contents.push(content as ContentModel)
+        if (content !== null) {
+          contents.push(content as ContentModel)
+        }
       }),
     )
     return res.status(200).json(contents)

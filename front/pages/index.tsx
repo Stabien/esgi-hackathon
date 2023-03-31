@@ -16,6 +16,7 @@ export default function Home() {
   const router = useRouter();
   const user = useSelector(selectUser);
   useEffect(() => {
+    console.log(user)
     switch (user.role) {
       case "Logged":
         router.push("/admin");
