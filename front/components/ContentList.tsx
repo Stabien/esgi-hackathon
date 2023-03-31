@@ -13,8 +13,10 @@ const ContentList = (props: Props) => {
     const newContentList: Content[] = [];
     const result = (await getAllContents()) as Content[]
     
+    console.log(result)
     result.forEach((content) => {
       newContentList.push({ ...(content), uuid: content.uuid });
+      console.log(parseInt(content.createdAt))
     });
     setContentList(newContentList);
   };
@@ -59,7 +61,7 @@ export const ContentItem = ({ content }: { content: Content }) => {
         </span>
         {/* <span style={{ gridArea: "impressions" }}>{content.type}</span> */}
         <span style={{ gridArea: "creationDate" }} className="">
-          {formatTimestamp(content.creationDate)}
+          {formatTimestamp(parseInt(content.createdAt) * 1000)}
         </span>
         {/* {content.uuid} <Link href={`/edit-content/${content.uuid}`}>edit</Link>{" "} */}
       </div>
