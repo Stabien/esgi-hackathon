@@ -17,14 +17,12 @@ const ContentPage = (props: Props) => {
     const result = await getDocs(collection(db, "content"))
     result.forEach((doc) => {
       newContentList.push({ ...(doc.data() as Content), uid: doc.id })
-      // doc.data() is never undefined for query doc snapshots
     })
     setContentList(newContentList);
   }
 
   useEffect(() => {
     getAllContents()
-    getContentByTags(["Services publics", "Commerce de détail et de services", "Sans emploi"])
   }, [])
 
   return (

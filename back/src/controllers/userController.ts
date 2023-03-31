@@ -83,7 +83,7 @@ export const registration = async (req: Request, res: Response): Promise<Respons
       password: hashedPassword,
       firstname,
       lastname,
-      role: 'user',
+      role: 'User',
       dateOfBirth,
       profession,
       children,

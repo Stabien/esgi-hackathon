@@ -11,7 +11,7 @@ export type BaseContent = {
   thumbnail: string;
   banner: string;
   tags: TagsType[];
-  createdAt: string; //timestamp
+  creationDate: string; //timestamp
 };
 
 export type ArticleContent = BaseContent & {

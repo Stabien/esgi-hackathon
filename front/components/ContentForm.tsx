@@ -127,6 +127,7 @@ const ContentForm = ({ form, setForm }: Props) => {
             Ajouter des Tags
           </p>
           <Select
+          menuPlacement="top"
             options={defaultTags.map((t) => ({ label: t, value: t }))}
             onChange={(e) => {
               if (!e) return;
