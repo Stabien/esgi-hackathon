@@ -74,22 +74,6 @@ const Signin = (props: Props) => {
       onSubmit={(e) => handleSubmit(e)}
       className="font-source text-neutral-500 flex flex-col pt-8  gap-4 items-center"
     >
-      <button
-        type="button"
-        onClick={() => {
-          console.log(auth.currentUser);
-        }}
-      >
-        log user
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          console.log(user);
-        }}
-      >
-        log Redux User
-      </button>
       <h1 className="font-prompt mx-auto text-3xl font-bold text-neutral-500">
         Mon inscription
       </h1>

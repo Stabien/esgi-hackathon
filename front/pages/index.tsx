@@ -15,11 +15,12 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const router = useRouter();
   const user = useSelector(selectUser);
+
   useEffect(() => {
     switch (user.role) {
-      case "Logged":
-        router.push("/admin");
-        break;
+      // case "Logged":
+      //   router.push("/admin");
+      //   break;
       case "Admin":
         router.push("/admin");
         break;
