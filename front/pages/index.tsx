@@ -8,7 +8,7 @@ import LayoutUser from "@/components/LayoutUser";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { selectUser } from "@/redux/user/user.selectors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CardIcon from "@/components/Icons/CardIcon";
 import { Content } from "@/types/content";
 
@@ -18,43 +18,44 @@ export default function Home() {
   const router = useRouter();
   const user = useSelector(selectUser);
 
-  const contents: Content[] = [
-    {
-      uuid: "1",
-      type: "article",
-      title: "Titre de l'article",
-      thumbnail:
-        "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
-      banner: "https://example.com/banner.jpg",
-      tags: [],
-      creationDate: "2022-01-01T00:00:00Z",
-      text: "Contenu de l'article",
-    },
-    {
-      uuid: "2",
-      type: "video",
-      title: "Titre de la vidéo",
-      thumbnail:
-        "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
-      banner: "https://example.com/banner.jpg",
-      tags: [],
-      creationDate: "2022-02-01T00:00:00Z",
-      url: "https://example.com/video.mp4",
-      description: "Description de la vidéo",
-    },
-    {
-      uuid: "3",
-      type: "podcast",
-      title: "Titre du podcast",
-      thumbnail:
-        "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
-      banner: "https://example.com/banner.jpg",
-      tags: [],
-      creationDate: "2022-03-01T00:00:00Z",
-      url: "https://example.com/podcast.mp3",
-      description: "Description du podcast",
-    },
-  ];
+  const [contentList, setContentList] = useState<Content[]>([]);
+  // const contents: Content[] = [
+  //   {
+  //     uuid: "1",
+  //     type: "article",
+  //     title: "Titre de l'article",
+  //     thumbnail:
+  //       "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
+  //     banner: "https://example.com/banner.jpg",
+  //     tags: [],
+  //     creationDate: "2022-01-01T00:00:00Z",
+  //     text: "Contenu de l'article",
+  //   },
+  //   {
+  //     uuid: "2",
+  //     type: "video",
+  //     title: "Titre de la vidéo",
+  //     thumbnail:
+  //       "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
+  //     banner: "https://example.com/banner.jpg",
+  //     tags: [],
+  //     creationDate: "2022-02-01T00:00:00Z",
+  //     url: "https://example.com/video.mp4",
+  //     description: "Description de la vidéo",
+  //   },
+  //   {
+  //     uuid: "3",
+  //     type: "podcast",
+  //     title: "Titre du podcast",
+  //     thumbnail:
+  //       "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
+  //     banner: "https://example.com/banner.jpg",
+  //     tags: [],
+  //     creationDate: "2022-03-01T00:00:00Z",
+  //     url: "https://example.com/podcast.mp3",
+  //     description: "Description du podcast",
+  //   },
+  // ];
 
   useEffect(() => {
     if (user.role === null) {
@@ -118,7 +119,7 @@ export default function Home() {
           <p className="text-neutral-500 text-xl font-bold">Médias</p>
           <div className="flex justify-center  items-center">
             <div className="grid grid-cols-2  w-full grid-rows-2 gap-4">
-              {contents.map((content) => (
+              {contentList.map((content) => (
                 <div
                   key={content.uuid}
                   className="w-full  flex flex-col text-neutral-500 gap-2"
