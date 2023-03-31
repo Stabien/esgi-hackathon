@@ -20,7 +20,26 @@ export const getContentByUuid = async (req: Request, res: Response): Promise<Res
 export const getAllContents = async (req: Request, res: Response): Promise<Response> => {
   try {
     const contents = await Content.findAll()
-    return res.status(200).json(contents)
+    const contentUuids = contents.map((content) => content.uuid)
+    const tags = await Tag.findAll({
+      where: {
+        contentUuid: contentUuids,
+      },
+      attributes: ['content_uuid', 'tag_name'],
+    })
+
+    const contentWithTags = contents.map((content) => {
+      content.tags = []
+
+      for (const tag of tags) {
+        if (tag.contentUuid === content.uuid) {
+          content.tags.push(tag.tagName)
+        }
+      }
+      return content
+    })
+
+    return res.status(200).json(contentWithTags)
   } catch (e) {
     return res.status(500).json({ error: e })
   }
@@ -35,12 +54,12 @@ export const addContent = async (req: Request, res: Response): Promise<Response>
   try {
     const uuid = crypto.randomUUID()
 
-    const newContent = await Content.create({ uuid, title, tags, type, text, thumbnail, url })
+    const newContent = await Content.create({ uuid, title, type, text, thumbnail, url })
     await newContent.save()
 
     await Promise.all(
       tags.map(async (tag: string) => {
-        const newTag = await Tag.create({ uuid, name: tag })
+        const newTag = await Tag.create({ uuid, tagName: tag })
         await newTag.save()
       }),
     )
@@ -100,9 +119,16 @@ export const getContentByTags = async (req: Request, res: Response): Promise<Res
   const contents: ContentModel[] = []
 
   try {
+    console.log('test')
     await Promise.all(
       tags.map(async (tag: string) => {
-        const contentUuids = await Tag.findAll({ where: { name: tag } })
+        console.log(tag)
+        const tagMatching = await Tag.findAll({
+          where: { tagName: tag },
+          attributes: ['content_uuid'],
+        })
+
+        const contentUuids = tagMatching.map((tag) => tag.contentUuid)
         const content = await Content.findOne({ where: { uuid: contentUuids } })
 
         contents.push(content as ContentModel)

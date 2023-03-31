@@ -31,7 +31,7 @@ const routes = (app: Application) => {
   app.route('/api/content/:uuid').get(getContentByUuid).put(updateContent).delete(deleteContent)
   app.route('/api/content').post(addContent)
   app.route('/api/contents').get(getAllContents)
-  app.route('/api/content/tags').get(getContentByTags)
+  app.route('/api/content/tags').post(getContentByTags)
 }
 
 export default routes

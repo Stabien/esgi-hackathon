@@ -52,6 +52,7 @@ export interface ContentModel extends Model {
   creationDate: number //timestamp
   text?: string
   url?: string
+  tags?: string[]
 }
 
 export interface ImpressionModel extends Model {
@@ -60,7 +61,7 @@ export interface ImpressionModel extends Model {
 
 export interface TagModel extends Model {
   contentUuid: string
-  name: string
+  tagName: string
 }
 
 /**
@@ -141,6 +142,10 @@ export const Content = sequelize.define<ContentModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    createdAt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     text: DataTypes.STRING,
     url: DataTypes.STRING,
   },
@@ -184,7 +189,7 @@ export const Tag = sequelize.define<TagModel>(
         key: 'uuid',
       },
     },
-    name: {
+    tagName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -192,5 +197,8 @@ export const Tag = sequelize.define<TagModel>(
   {
     underscored: true,
     timestamps: false,
+    tableName: 'tag',
   },
 )
+
+Content.hasMany(Tag)
