@@ -74,7 +74,7 @@ const Login = (props: Props) => {
         <div className="flex justify-between">
           <button
             type="submit"
-            className="rounded-md bg-yellow-150 px-12 py-4 mt-6 ml-auto mr-0"
+            className="rounded-md bg-yellow-150 px-12 py-4 mt-6 ml-auto mr-0 hover:text-white hover:bg-red-400"
           >
             Login
           </button>
