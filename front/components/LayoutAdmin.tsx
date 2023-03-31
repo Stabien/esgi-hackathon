@@ -9,6 +9,7 @@ interface LayoutProps {
 
 export function LayoutAdmin({ children }: LayoutProps) {
   const user = useSelector(selectUser);
+  console.log(user)
   return (
     <div
       style={{

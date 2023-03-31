@@ -5,13 +5,13 @@ export type ContentType = "article" | "video" | "podcast";
 export type TagsType = ProfessionCategory | SportCategory;
 
 export type BaseContent = {
-  uid: string;
+  uuid: string;
   type: ContentType;
   title: string;
   thumbnail: string;
   banner: string;
   tags: TagsType[];
-  creationDate: number; //timestamp
+  createdAt: string; //timestamp
 };
 
 export type ArticleContent = BaseContent & {

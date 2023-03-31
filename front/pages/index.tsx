@@ -30,5 +30,9 @@ export default function Home() {
     }
   }, [user]);
 
-  return <LayoutUser> </LayoutUser>;
+  return (
+    <LayoutUser>
+      <main className=""></main>
+    </LayoutUser>
+  );
 }

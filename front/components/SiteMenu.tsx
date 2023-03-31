@@ -5,7 +5,10 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ChevronIcon from "./Icons/ChevronIcon";
 import HomeIcon from "./Icons/HomeIcon";
+import LogInIcon from "./Icons/LogInIcon";
+import LogOutIcon from "./Icons/LogOutIcon";
 import PlusIcon from "./Icons/PlusIcon";
+import SignInIcon from "./Icons/SignInIcon";
 import StatIcon from "./Icons/StatIcon";
 
 type Props = {};
@@ -21,16 +24,22 @@ function SiteMenu({}: Props) {
       <Link href="/">
         <img src="/jaji.svg" alt="" />
       </Link>
-        {user.role === null ? (
-          <>
-            <Link href="/login">Login</Link>
-            <Link href="/signin">Signin</Link>
-          </>
-        ) : (
-          <Link href="/logout">Logout</Link>
-        )}
         {user.role === "Admin" && (
           <>
+            <div className="text-neutral-500 mt-8">
+              <div className="flex flew-row gap-5">
+                <div className="my-auto h-fit"><HomeIcon size="20"/></div>
+                <div className="font-semibold text-xl"><Link href="/">Accueil</Link> </div> 
+              </div>
+            </div>
+
+            {/* <div className="text-neutral-500 mt-8">
+              <div className="flex flew-row gap-5">
+                <div className="my-auto h-fit"><PlusIcon size="20"/></div>
+                <div className="font-semibold text-xl"><Link href="/admin">Admin</Link> </div> 
+              </div>
+            </div> */}
+
             <div className="text-neutral-500 my-5">
               <div className="flex flew-row gap-5">
                 <div className="my-auto h-fit"><PlusIcon size="20"/> </div>
@@ -40,16 +49,16 @@ function SiteMenu({}: Props) {
               {isContentMenuOpened&&
                <div className="flex flex-col ml-10 justify-start">
                 <div className="text-sm">
-                  <Link href="/new-content">Nouvel article</Link>
+                  <Link href="/new-content">Nouveau contenu</Link>
                 </div>
                 <div className="text-sm">
-                  <Link href="/content">Tous les contenus</Link>
+                  <Link href="/contents">Tous les contenus</Link>
                 </div>
               </div>
               }
           </div>
 
-            <div className="text-neutral-500 ">
+            <div className="text-neutral-500 mb-5">
               <div className="flex flew-row gap-5">
                 <div className="my-auto h-fit"><StatIcon size="20"/></div>
                 <div className="font-semibold text-xl" onClick={()=>setIsStatMenuOpened(!isStatMenuOpened)}>Statistiques</div> 
@@ -58,10 +67,10 @@ function SiteMenu({}: Props) {
               {isStatMenuOpened&&               
               <div className="flex flex-col ml-10 justify-start">
                 <div className="text-sm">
-                <Link href="/new-content">Campagnes</Link>
+                <Link href="/">Clients</Link>
                 </div>
                 <div className="text-sm">
-                  <Link href="/content">Tous les contenus</Link>
+                  <Link href="/">Campagnes</Link>
                 </div>
               </div>
               }
@@ -70,6 +79,24 @@ function SiteMenu({}: Props) {
             
        </>
       
+        )}
+
+        {user.role === null ? (
+          <>
+          <div className="font-semibold text-xl text-neutral-500 flex flex-row gap-5 my-5">
+            <div className="my-auto h-fit"><LogInIcon /></div>
+              <Link href="/login">Login</Link>
+            </div>
+          <div className="font-semibold text-xl text-neutral-500 flex flex-row gap-5">
+            <div className="my-auto h-fit"><SignInIcon /></div>
+            <Link href="/signin">Signin</Link>
+          </div>
+          </>
+        ) : (
+          <div className="font-semibold text-xl text-neutral-500 flex flex-row gap-5">
+          <div className="my-auto h-fit"><LogOutIcon /></div>
+          <Link href="/logout">Logout</Link>
+          </div>
         )}
     </article>
   );
