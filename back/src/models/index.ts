@@ -49,7 +49,7 @@ export interface ContentModel extends Model {
   type: ContentType
   title: string
   thumbnail: string
-  creationDate: number //timestamp
+  createdAt: number //timestamp
   text?: string
   url?: string
   tags?: string[]
@@ -142,7 +142,7 @@ export const Content = sequelize.define<ContentModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    creationDate: {
+    createdAt: {
       type: DataTypes.STRING,
       allowNull: false,
     },

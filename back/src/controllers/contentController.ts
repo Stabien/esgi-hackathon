@@ -46,7 +46,7 @@ export const getAllContents = async (req: Request, res: Response): Promise<Respo
 }
 
 export const addContent = async (req: Request, res: Response): Promise<Response> => {
-  const { title, type, tags, thumbnail, creationDate } = req.body
+  const { title, type, tags, thumbnail, createdAt } = req.body
 
   const url = req.body.hasOwnProperty('url') ? req.body.url : null
   const text = req.body.hasOwnProperty('text') ? req.body.text : null
@@ -61,7 +61,7 @@ export const addContent = async (req: Request, res: Response): Promise<Response>
       text,
       thumbnail,
       url,
-      creationDate,
+      createdAt,
     })
     await newContent.save()
 
