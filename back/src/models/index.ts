@@ -184,6 +184,7 @@ export const Tag = sequelize.define<TagModel>(
     contentUuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
       references: {
         model: 'content', // Can be both a string representing the table name or a Sequelize model
         key: 'uuid',

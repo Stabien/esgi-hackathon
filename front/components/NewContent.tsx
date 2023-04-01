@@ -2,6 +2,7 @@ import ContentForm from "@/components/ContentForm";
 import ArrowIcon from "@/components/Icons/ArrowIcon";
 import { defaultContent } from "@/constants";
 import { db } from "@/constants/db";
+import { addNewContent } from "@/services/content.backend";
 import { Content } from "@/types/content";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
@@ -18,7 +19,7 @@ const NewContent = (props: Props) => {
         creationDate: Date.now(),
       };
       delete newContent.uid;
-      //await addDoc(collection(db, "content"), newContent);
+      await addNewContent(newContent)
       toast(`${newContent.type} a été crée`);
       setContentForm(defaultContent);
     } catch (error: any) {

@@ -31,8 +31,6 @@ export const getAllContents = async (req: Request, res: Response): Promise<Respo
     const contentWithTags = contents.map((content) => {
       content.dataValues.tags = []
       for (const tag of tags) {
-        // console.log(tag.dataValues.content_uuid, content.uuid)
-        // console.log(tag.dataValues.content_uuid === content.uuid)
         if (tag.dataValues.content_uuid === content.uuid) {
           content.dataValues.tags.push(tag.dataValues.tag_name)
         }
@@ -48,7 +46,7 @@ export const getAllContents = async (req: Request, res: Response): Promise<Respo
 }
 
 export const addContent = async (req: Request, res: Response): Promise<Response> => {
-  const { title, type, tags, thumbnail } = req.body
+  const { title, type, tags, thumbnail, creationDate } = req.body
 
   const url = req.body.hasOwnProperty('url') ? req.body.url : null
   const text = req.body.hasOwnProperty('text') ? req.body.text : null
@@ -56,12 +54,20 @@ export const addContent = async (req: Request, res: Response): Promise<Response>
   try {
     const uuid = crypto.randomUUID()
 
-    const newContent = await Content.create({ uuid, title, type, text, thumbnail, url })
+    const newContent = await Content.create({
+      uuid,
+      title,
+      type,
+      text,
+      thumbnail,
+      url,
+      creationDate,
+    })
     await newContent.save()
 
     await Promise.all(
       tags.map(async (tag: string) => {
-        const newTag = await Tag.create({ uuid, tagName: tag })
+        const newTag = await Tag.create({ contentUuid: uuid, tagName: tag })
         await newTag.save()
       }),
     )
