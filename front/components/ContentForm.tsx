@@ -1,68 +1,62 @@
-import { defaultContent, defaultTags } from "@/constants";
-import { db } from "@/constants/db";
-import Select from "react-select";
-import {
-  ArticleContent,
-  Content,
-  ContentType,
-  TagsType,
-  VideoContent,
-} from "@/types/content";
-import { addDoc, collection } from "firebase/firestore";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { toast } from "react-hot-toast";
-import ArticleIcon from "@/components/Icons/ArticleIcon";
-import MicIcon from "@/components/Icons/MicIcon";
-import VideoIcon from "@/components/Icons/VideoIcon";
-import PlusIcon from "@/components/Icons/PlusIcon";
-import { getRandomBackground } from "@/utils/display";
+import { defaultContent, defaultTags } from '@/constants'
+import { db } from '@/constants/db'
+import Select from 'react-select'
+import { ArticleContent, Content, ContentType, TagsType, VideoContent } from '@/types/content'
+import { addDoc, collection } from 'firebase/firestore'
+import React, { Dispatch, SetStateAction, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import ArticleIcon from '@/components/Icons/ArticleIcon'
+import MicIcon from '@/components/Icons/MicIcon'
+import VideoIcon from '@/components/Icons/VideoIcon'
+import PlusIcon from '@/components/Icons/PlusIcon'
+import { getRandomBackground } from '@/utils/display'
 
 type Props = {
-  form: Content;
-  setForm: Dispatch<SetStateAction<Content>>;
-};
+  form: Content
+  setForm: Dispatch<SetStateAction<Content>>
+}
 
 const ContentForm = ({ form, setForm }: Props) => {
   const contentTypeList: { icon: any; content: ContentType }[] = [
-    { icon: <ArticleIcon size="40" />, content: "article" },
-    { icon: <MicIcon size="40" />, content: "podcast" },
-    { icon: <VideoIcon size="40" />, content: "video" },
-  ];
+    { icon: <ArticleIcon size="40" />, content: 'article' },
+    { icon: <MicIcon size="40" />, content: 'podcast' },
+    { icon: <VideoIcon size="40" />, content: 'video' },
+  ]
 
   const handleTypeContent = (content: ContentType) => {
-    if (content === "article") {
-      if (form.type === "article") return;
+    if (content === 'article') {
+      if (form.type === 'article') return
       const newContent: ArticleContent = {
         type: content,
-        creationDate: form.creationDate,
+        createdAt: form.createdAt,
         tags: form.tags,
         thumbnail: form.thumbnail,
         banner: form.banner,
-        text: "",
+        text: '',
         title: form.title,
         uuid: form.uuid,
-      };
-      setForm(newContent);
+      }
+      setForm(newContent)
     } else {
       const newContent: VideoContent = {
         type: content,
-        creationDate: form.creationDate,
+        createdAt: form.createdAt,
         tags: form.tags,
         thumbnail: form.thumbnail,
         banner: form.banner,
         title: form.title,
         uuid: form.uuid,
-        description: "",
-        url: "",
-      };
-      setForm(newContent);
+        description: '',
+        url: '',
+      }
+      setForm(newContent)
     }
-  };
+  }
 
   const handleDeleteTags = (tag: TagsType) => {
-    const newTags = [...form.tags.filter((t) => t !== tag)];
-    setForm((prevState) => ({ ...prevState, tags: newTags }));
-  };
+    const newTags = [...form.tags.filter((t) => t !== tag)]
+    setForm((prevState) => ({ ...prevState, tags: newTags }))
+  }
 
   return (
     <div className="font-prompt w-full">
@@ -72,7 +66,7 @@ const ContentForm = ({ form, setForm }: Props) => {
             onClick={() => handleTypeContent(content.content)}
             key={content.content}
             className={`${
-              form.type === content.content ? "bg-pink-50" : "bg-white"
+              form.type === content.content ? 'bg-pink-50' : 'bg-white'
             } gap-4 p-4 px-4 text-neutral-500 text-xl capitalize font-bold flex cursor-pointer  pr-20 rounded items-center justify-center shadow`}
           >
             {content.icon}
@@ -86,23 +80,21 @@ const ContentForm = ({ form, setForm }: Props) => {
         }}
         className="grid grid-cols-2 gap-8 mt-20"
       >
-        <section style={{ gridArea: "infos" }} className="flex flex-col gap-4">
+        <section style={{ gridArea: 'infos' }} className="flex flex-col gap-4">
           <p className="text-xl font-semibold text-neutral-500 mb-4">Contenu</p>
           <input
             type="text"
             name="title"
             value={form.title}
             placeholder="Titre du contenu"
-            onChange={(e) =>
-              setForm((prevState) => ({ ...prevState, title: e.target.value }))
-            }
+            onChange={(e) => setForm((prevState) => ({ ...prevState, title: e.target.value }))}
             className="w-full rounded-lg px-4 py-2 bg-white text-neutral-500"
           />
           <input
             type="text"
             name="thumbnail"
             value={form.thumbnail}
-            placeholder="url de la Thumbnail"
+            placeholder="URL de la Thumbnail"
             onChange={(e) =>
               setForm((prevState) => ({
                 ...prevState,
@@ -115,27 +107,23 @@ const ContentForm = ({ form, setForm }: Props) => {
             type="text"
             name="urlBanner"
             value={form.banner}
-            placeholder="url de la bannière"
-            onChange={(e) =>
-              setForm((prevState) => ({ ...prevState, banner: e.target.value }))
-            }
+            placeholder="URL de la bannière"
+            onChange={(e) => setForm((prevState) => ({ ...prevState, banner: e.target.value }))}
             className="w-full rounded-lg px-4 py-2 bg-white text-neutral-500"
           />
         </section>
-        <section style={{ gridArea: "tags" }} className="flex flex-col gap-4">
-          <p className="text-xl font-semibold text-neutral-500 mb-4">
-            Ajouter des Tags
-          </p>
+        <section style={{ gridArea: 'tags' }} className="flex flex-col gap-4">
+          <p className="text-xl font-semibold text-neutral-500 mb-4">Ajouter des Tags</p>
           <Select
             menuPlacement="top"
             options={defaultTags.map((t) => ({ label: t, value: t }))}
             onChange={(e) => {
-              if (!e) return;
-              const newTags: TagsType[] = [...form.tags];
-              if (newTags.includes(e.value)) return;
+              if (!e) return
+              const newTags: TagsType[] = [...form.tags]
+              if (newTags.includes(e.value)) return
 
-              newTags.push(e.value);
-              setForm((prevState) => ({ ...prevState, tags: newTags }));
+              newTags.push(e.value)
+              setForm((prevState) => ({ ...prevState, tags: newTags }))
             }}
           />
           {form.tags.length > 0 && (
@@ -144,14 +132,11 @@ const ContentForm = ({ form, setForm }: Props) => {
                 <div
                   key={tag}
                   className={`${getRandomBackground(
-                    i
+                    i,
                   )}  rounded flex items-center gap-4 px-2 py-1 text-white`}
                 >
                   {tag}
-                  <span
-                    className="cursor-pointer"
-                    onClick={() => handleDeleteTags(tag)}
-                  >
+                  <span className="cursor-pointer" onClick={() => handleDeleteTags(tag)}>
                     <PlusIcon rotation={45} />
                   </span>
                 </div>
@@ -159,11 +144,8 @@ const ContentForm = ({ form, setForm }: Props) => {
             </div>
           )}
         </section>
-        <section
-          style={{ gridArea: "content" }}
-          className="flex flex-col gap-4"
-        >
-          {form.type === "article" && (
+        <section style={{ gridArea: 'content' }} className="flex flex-col gap-4">
+          {form.type === 'article' && (
             <>
               <textarea
                 name="articleText"
@@ -178,12 +160,12 @@ const ContentForm = ({ form, setForm }: Props) => {
               />
             </>
           )}
-          {form.type !== "article" && (
+          {form.type !== 'article' && (
             <>
               <input
                 type="text"
                 name="contentUrl"
-                placeholder="url de votre contenu"
+                placeholder="URL de votre contenu"
                 onChange={(e) =>
                   setForm((prevState) => ({
                     ...prevState,
@@ -194,7 +176,7 @@ const ContentForm = ({ form, setForm }: Props) => {
               />
               <textarea
                 name="contentDescription"
-                placeholder="description de votre contenu"
+                placeholder="Description de votre contenu"
                 onChange={(e) =>
                   setForm((prevState) => ({
                     ...prevState,
@@ -208,7 +190,7 @@ const ContentForm = ({ form, setForm }: Props) => {
         </section>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ContentForm;
+export default ContentForm

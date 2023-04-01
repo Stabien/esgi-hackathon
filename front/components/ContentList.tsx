@@ -1,47 +1,45 @@
-import { db } from "@/constants/db";
-import { getAllContents } from "@/services/content.backend";
-import { Content, ContentType } from "@/types/content";
-import { formatTimestamp, getRandomBackground } from "@/utils/display";
-import React, { useEffect, useState } from "react";
+import { db } from '@/constants/db'
+import { getAllContents } from '@/services/content.backend'
+import { Content, ContentType } from '@/types/content'
+import { formatTimestamp, getRandomBackground } from '@/utils/display'
+import React, { useEffect, useState } from 'react'
 
-type Props = {};
+type Props = {}
 
 const ContentList = (props: Props) => {
-  const [contentList, setContentList] = useState<Content[]>([]);
+  const [contentList, setContentList] = useState<Content[]>([])
 
   const fetchContent = async () => {
-    const newContentList: Content[] = [];
+    const newContentList: Content[] = []
     const result = (await getAllContents()) as Content[]
-    
+
     console.log(result)
     result.forEach((content) => {
-      newContentList.push({ ...(content), uuid: content.uuid });
-      console.log(parseInt(content.creationDate))
-    });
-    setContentList(newContentList);
-  };
+      newContentList.push({ ...content, uuid: content.uuid })
+      console.log(parseInt(content.createdAt))
+    })
+    setContentList(newContentList)
+  }
 
   useEffect(() => {
-    fetchContent();
-  }, []);
+    fetchContent()
+  }, [])
   return (
     <div>
-      <h1 className="text-xl text-neutral-500 py-8 font-bold">
-        Toutes nos campagnes
-      </h1>
+      <h1 className="text-xl text-neutral-500 py-8 font-bold">Toutes nos campagnes</h1>
       <div className="flex flex-col gap-4">
         {contentList.map((content) => (
           <ContentItem content={content} />
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ContentList;
+export default ContentList
 
 export const ContentItem = ({ content }: { content: Content }) => {
-  const [opened, setOpened] = useState<boolean>(false);
+  const [opened, setOpened] = useState<boolean>(false)
   return (
     <div>
       <div
@@ -51,17 +49,17 @@ export const ContentItem = ({ content }: { content: Content }) => {
         key={content.uuid}
       >
         <span
-          style={{ gridArea: "type" }}
+          style={{ gridArea: 'type' }}
           className={`${getBackColor(content.type)} py-2 px-4  rounded w-fit`}
         >
           {content.type}
         </span>
-        <span style={{ gridArea: "title" }} className="font-bold text-lg">
+        <span style={{ gridArea: 'title' }} className="font-bold text-lg">
           {content.title}
         </span>
         {/* <span style={{ gridArea: "impressions" }}>{content.type}</span> */}
-        <span style={{ gridArea: "creationDate" }} className="">
-          {formatTimestamp(parseInt(content.creationDate) * 1000)}
+        <span style={{ gridArea: 'createdAt' }} className="">
+          {formatTimestamp(parseInt(content.createdAt))}
         </span>
         {/* {content.uuid} <Link href={`/edit-content/${content.uuid}`}>edit</Link>{" "} */}
       </div>
@@ -72,9 +70,7 @@ export const ContentItem = ({ content }: { content: Content }) => {
           <div className=" gap-4 flex flex-wrap ">
             {content.tags.map((t, i) => (
               <span
-                className={`${getRandomBackground(
-                  i
-                )}  rounded  w-fit gap-4 px-4 py-1 text-white`}
+                className={`${getRandomBackground(i)}  rounded  w-fit gap-4 px-4 py-1 text-white`}
               >
                 {t}
               </span>
@@ -83,30 +79,30 @@ export const ContentItem = ({ content }: { content: Content }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const gridTitleList = [
-  { v: "Type campagne", g: "type" },
-  { v: "Titre de la campagne", g: "title" },
+  { v: 'Type campagne', g: 'type' },
+  { v: 'Titre de la campagne', g: 'title' },
   //   { v: "Personnes visées", g: "impressions" },
-  { v: "Créé le", g: "creationDate" },
-];
+  { v: 'Créé le', g: 'createdAt' },
+]
 
 const getBackColor = (type: ContentType) => {
   switch (type) {
-    case "article":
-      return "bg-green-50";
-    case "podcast":
-      return "bg-yelllow-50";
-    case "video":
-      return "bg-pink-50";
+    case 'article':
+      return 'bg-green-50'
+    case 'podcast':
+      return 'bg-yelllow-50'
+    case 'video':
+      return 'bg-pink-50'
 
     default:
-      return "bg-pink-50";
+      return 'bg-pink-50'
   }
-};
+}
 
 const contentGridTemplateAreas = {
-  gridTemplateAreas: `'type title impressions creationDate'`,
-};
+  gridTemplateAreas: `'type title impressions createdAt'`,
+}

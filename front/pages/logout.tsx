@@ -1,4 +1,4 @@
-import { LogoutFirebase } from "@/services/db";
+import { logout } from "@/services/content.backend";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
@@ -6,13 +6,12 @@ type Props = {};
 
 const LogoutPage = (props: Props) => {
   const router = useRouter();
-  const logout = async () => {
-    await LogoutFirebase();
-    router.push("/");
-  };
+  
   useEffect(() => {
-    logout();
-  }, []);
+    logout()
+    router.push('/login')
+  }, [])
+
   return <div>LogoutPage</div>;
 };
 

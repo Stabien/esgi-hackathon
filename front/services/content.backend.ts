@@ -1,5 +1,9 @@
 import { Content, TagsType } from '@/types/content'
 
+export const logout = () => {
+  localStorage.removeItem('token')
+}
+
 export const getAllContents = async (
 ): Promise<Content[] | Error> => {
   try {

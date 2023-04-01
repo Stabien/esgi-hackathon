@@ -45,7 +45,7 @@ export const defaultContent: Content = {
   thumbnail: "",
   banner: "",
   title: "",
-  creationDate: 0,
+  createdAt: 0,
   type: "article",
   text: "",
 };

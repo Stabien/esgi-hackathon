@@ -16,7 +16,7 @@ const NewContent = (props: Props) => {
     try {
       const newContent: any = {
         ...contentForm,
-        creationDate: Date.now(),
+        createdAt: Date.now(),
       };
       delete newContent.uid;
       await addNewContent(newContent)
