@@ -33,13 +33,16 @@ export const authentication = async (req: Request, res: Response): Promise<Respo
         return res.status(404).json({ error: 'User not found' })
       }
 
-      const { uuid } = user
+      const { uuid, firstname, lastname, role } = user
       const token = jwt.sign({ uuid }, process.env.JWT_KEY as jwt.Secret)
 
       return res.status(200).json({
         user: {
           uuid,
           email: user.email,
+          firstname,
+          lastname,
+          role,
           token,
         },
       })

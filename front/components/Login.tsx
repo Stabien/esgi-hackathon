@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { selectUser } from "@/redux/user/user.selectors";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { User } from "@/types";
 
 type Props = {};
 
@@ -13,6 +14,7 @@ const Login = (props: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter()
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,10 +24,16 @@ const Login = (props: Props) => {
         dispatch(updateUser(result));
       }
       toast(`Vous etes connecté avec ${email}`);
+      
+      console.log(result)
+      if ((result as User).role === 'Admin') {
+        router.push('/admin')
+      } else {
+        router.push('/')
+      }
     } catch (error: any) {
       toast.error(error.message);
     }
-    // Here you can implement your login logic using email and password state variables
   };
 
   return (

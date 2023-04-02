@@ -3,12 +3,29 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { LayoutAdmin } from "@/components/LayoutAdmin";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/redux/user/user.selectors";
+import { useRouter } from "next/router";
+import { useEffect } from 'react'
 
 type Props = {};
 
 const inter = Inter({ subsets: ["latin"] });
 
 const AdminPage = (props: Props) => {
+  const user = useSelector(selectUser)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (user === null) {
+      router.push('/login')
+    }
+
+    if (user.role !== 'Admin') {
+      router.push('/')
+    }
+  })
+
   return (
     <LayoutAdmin>
       <Head>

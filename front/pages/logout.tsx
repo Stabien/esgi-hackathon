@@ -10,7 +10,7 @@ const LogoutPage = (props: Props) => {
   useEffect(() => {
     logout()
     router.push('/login')
-  }, [])
+  })
 
   return <div>LogoutPage</div>;
 };

@@ -126,7 +126,7 @@ const ContentForm = ({ form, setForm }: Props) => {
               setForm((prevState) => ({ ...prevState, tags: newTags }))
             }}
           />
-          {form.tags.length > 0 && (
+          {form.tags?.length > 0 && (
             <div className="w-full rounded-lg px-4 py-2 gap-4 bg-white text-neutral-500 flex flex-wrap">
               {form.tags.map((tag, i) => (
                 <div

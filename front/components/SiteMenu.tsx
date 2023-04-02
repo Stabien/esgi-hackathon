@@ -34,7 +34,7 @@ function SiteMenu({}: Props) {
                 <HomeIcon size="20" />
               </div>
               <div className="font-semibold text-xl">
-                <Link href="/">Accueil</Link>{' '}
+                <Link href="/admin">Accueil</Link>{' '}
               </div>
             </div>
           </div>

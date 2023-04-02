@@ -16,6 +16,17 @@ export const getAllContents = async (
   }
 }
 
+export const getContentByUuid = async (uuid: string): Promise<Content | Error> => {
+    try {
+      const result = await fetch(`http://localhost:4000/api/content/${uuid}`)
+      const data = await result.json()
+  
+      return data
+    } catch (e) {
+      return e as Error;
+    }
+  }
+
 export const getContentByTags = async (
   body: TagsType[]
 ): Promise<Content[] | Error> => {

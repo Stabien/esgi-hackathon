@@ -12,15 +12,6 @@ const LoginPage = (props: Props) => {
   const user = useSelector(selectUser)
   const router = useRouter()
 
-  useEffect(() => {
-    if (user.role === 'User') {
-      router.push('/')
-    }
-
-    if (user.role === 'Admin') {
-      router.push('/admin')
-    }
-  }, [user])
   return (
     <LayoutUser>
       <Login />

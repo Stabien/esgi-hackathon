@@ -2,6 +2,7 @@ import { db } from '@/constants/db'
 import { getAllContents } from '@/services/content.backend'
 import { Content, ContentType } from '@/types/content'
 import { formatTimestamp, getRandomBackground } from '@/utils/display'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 type Props = {}
@@ -61,7 +62,7 @@ export const ContentItem = ({ content }: { content: Content }) => {
         <span style={{ gridArea: 'createdAt' }} className="">
           {formatTimestamp(parseInt(content.createdAt))}
         </span>
-        {/* {content.uuid} <Link href={`/edit-content/${content.uuid}`}>edit</Link>{" "} */}
+        <Link href={`/edit-content/${content.uuid}`}>edit</Link>{" "}
       </div>
       {opened && (
         <div className=" w-full  bg-white z-10 pt-8 -translate-y-2 p-4 flex flex-col gap-4">
@@ -94,7 +95,7 @@ const getBackColor = (type: ContentType) => {
     case 'article':
       return 'bg-green-50'
     case 'podcast':
-      return 'bg-yelllow-50'
+      return 'bg-yellow-50'
     case 'video':
       return 'bg-pink-50'
 
