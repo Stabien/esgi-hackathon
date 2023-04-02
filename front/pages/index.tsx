@@ -10,7 +10,8 @@ import { useSelector } from 'react-redux'
 import { selectUser } from '@/redux/user/user.selectors'
 import { useEffect, useState } from 'react'
 import CardIcon from '@/components/Icons/CardIcon'
-import { Content } from '@/types/content'
+import { Content, TagsType } from '@/types/content'
+import { getContentByTags } from '@/services/content.backend'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,63 +20,25 @@ export default function Home() {
   const user = useSelector(selectUser)
 
   const [contentList, setContentList] = useState<Content[]>([])
-  // const contents: Content[] = [
-  //   {
-  //     uuid: "1",
-  //     type: "article",
-  //     title: "Titre de l'article",
-  //     thumbnail:
-  //       "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
-  //     banner: "https://example.com/banner.jpg",
-  //     tags: [],
-  //     createdAt: "2022-01-01T00:00:00Z",
-  //     text: "Contenu de l'article",
-  //   },
-  //   {
-  //     uuid: "2",
-  //     type: "video",
-  //     title: "Titre de la vidéo",
-  //     thumbnail:
-  //       "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
-  //     banner: "https://example.com/banner.jpg",
-  //     tags: [],
-  //     createdAt: "2022-02-01T00:00:00Z",
-  //     url: "https://example.com/video.mp4",
-  //     description: "Description de la vidéo",
-  //   },
-  //   {
-  //     uuid: "3",
-  //     type: "podcast",
-  //     title: "Titre du podcast",
-  //     thumbnail:
-  //       "https://previews.123rf.com/images/cunaplus/cunaplus1611/cunaplus161100296/66207275-senior-man-falling-down-on-the-stairs-at-the-home.jpg",
-  //     banner: "https://example.com/banner.jpg",
-  //     tags: [],
-  //     createdAt: "2022-03-01T00:00:00Z",
-  //     url: "https://example.com/podcast.mp3",
-  //     description: "Description du podcast",
-  //   },
-  // ];
+  const getContents = async () => {
+    const tags = user.tags as TagsType[]
+
+    
+    console.log(tags)
+    try {
+      const contents = await getContentByTags(tags)
+      setContentList(contents as Content[])
+      console.log(contents)
+    } catch (e) {
+      throw new Error(e as string)
+    }
+  }
 
   useEffect(() => {
     if (user.role === null) {
       router.push('/login')
     }
-    // switch (user.role) {
-    //   // case "Logged":
-    //   //   router.push("/admin");
-    //   //   break;
-    //   // case "Admin":
-    //   //   router.push("/admin");
-    //   //   break;
-    //   case null:
-    //     router.push("/login");
-    //     break;
-
-    //   default:
-    //     // router.push("/login");
-    //     break;
-    // }
+    getContents()
   }, [])
 
   return (

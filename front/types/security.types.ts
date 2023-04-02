@@ -10,5 +10,5 @@ export type RegistrationType = {
   profession: ProfessionCategory;
   children: number;
   sport: SportCategory;
-  role: Role;
+  role?: Role;
 };

@@ -31,8 +31,7 @@ const ContentForm = ({ form, setForm }: Props) => {
         createdAt: form.createdAt,
         tags: form.tags,
         thumbnail: form.thumbnail,
-        banner: form.banner,
-        text: '',
+        text: form.text,
         title: form.title,
         uuid: form.uuid,
       }
@@ -43,10 +42,9 @@ const ContentForm = ({ form, setForm }: Props) => {
         createdAt: form.createdAt,
         tags: form.tags,
         thumbnail: form.thumbnail,
-        banner: form.banner,
         title: form.title,
         uuid: form.uuid,
-        description: '',
+        description: form.description,
         url: '',
       }
       setForm(newContent)
@@ -102,14 +100,6 @@ const ContentForm = ({ form, setForm }: Props) => {
               }))
             }
             className="w-full rounded-lg px-4 py-2 bg-white text-neutral-500 "
-          />
-          <input
-            type="text"
-            name="urlBanner"
-            value={form.banner}
-            placeholder="URL de la bannière"
-            onChange={(e) => setForm((prevState) => ({ ...prevState, banner: e.target.value }))}
-            className="w-full rounded-lg px-4 py-2 bg-white text-neutral-500"
           />
         </section>
         <section style={{ gridArea: 'tags' }} className="flex flex-col gap-4">

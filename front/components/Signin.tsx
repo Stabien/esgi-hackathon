@@ -53,21 +53,14 @@ const Signin = (props: Props) => {
         lastname: userForm.lastname,
         profession: userForm.profession,
         children: userForm.children,
-        role: "Logged",
         sport: userForm.sport,
       };
-      const result = await Security.register(bodyRegister);
-      console.log(result);
+      await Security.register(bodyRegister);
+      router.push('/login')
     } catch (error: any) {
       toast.error(error.message);
     }
   };
-
-  useEffect(() => {
-    if (user.role !== null) {
-      router.push("/");
-    }
-  }, [user]);
 
   return (
     <form
@@ -322,7 +315,7 @@ const Signin = (props: Props) => {
               required
               className="border border-neutral-150 px-4 py-2 rounded"
               onChange={(e) => {
-                const newDate = new Date(e.target.value).getTime() / 1000;
+                const newDate = new Date(e.target.value).getTime();
                 setUserForm((prevState) => ({
                   ...prevState,
                   dateOfBirth: newDate,

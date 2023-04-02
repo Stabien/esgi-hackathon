@@ -30,4 +30,5 @@ export type User = {
   children: number;
   role: Role;
   token?: string | undefined;
+  tags?: string[]
 };

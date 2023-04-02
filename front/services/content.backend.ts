@@ -28,9 +28,13 @@ export const getContentByUuid = async (uuid: string): Promise<Content | Error> =
   }
 
 export const getContentByTags = async (
-  body: TagsType[]
+  tags: TagsType[]
 ): Promise<Content[] | Error> => {
   try {
+    const body = {
+      tags
+    }
+    
     const result = await fetch("http://localhost:4000/api/content/tags", {
       method: "POST",
       headers: {

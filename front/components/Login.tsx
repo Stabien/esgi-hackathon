@@ -28,7 +28,9 @@ const Login = (props: Props) => {
       console.log(result)
       if ((result as User).role === 'Admin') {
         router.push('/admin')
-      } else {
+      }
+
+      if ((result as User).role === 'User') {
         router.push('/')
       }
     } catch (error: any) {

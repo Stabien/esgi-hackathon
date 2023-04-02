@@ -14,7 +14,6 @@ const ContentList = (props: Props) => {
     const newContentList: Content[] = []
     const result = (await getAllContents()) as Content[]
 
-    console.log(result)
     result.forEach((content) => {
       newContentList.push({ ...content, uuid: content.uuid })
       console.log(parseInt(content.createdAt))
@@ -62,10 +61,9 @@ export const ContentItem = ({ content }: { content: Content }) => {
         <span style={{ gridArea: 'createdAt' }} className="">
           {formatTimestamp(parseInt(content.createdAt))}
         </span>
-        <Link href={`/edit-content/${content.uuid}`}>edit</Link>{" "}
       </div>
       {opened && (
-        <div className=" w-full  bg-white z-10 pt-8 -translate-y-2 p-4 flex flex-col gap-4">
+        <div className="w-full  bg-white z-10 pt-8 -translate-y-2 p-4 flex flex-col gap-4">
           <span className="text-ls text-neutral-500  ">Tags associés :</span>
 
           <div className=" gap-4 flex flex-wrap ">

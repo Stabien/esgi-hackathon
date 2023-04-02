@@ -9,7 +9,7 @@ export type BaseContent = {
   type: ContentType;
   title: string;
   thumbnail: string;
-  banner: string;
+  banner?: string;
   tags: TagsType[];
   createdAt: string; //timestamp
 };
